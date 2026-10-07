@@ -5,7 +5,7 @@ S1: text[0:157] (157 letters, square 166)  "freundschaftallenv…ftfreundschaftw
      text letters not found in the square:            fu
 S2: text[157:325] (168 letters, square 169)  "enwirerringenwennw…ufdiefreundschaftw"
      left over in the square (not used by the text): l
-     text letters not found in the square:            —
+     text letters not found in the square:            none
 S3: text[325:495] (170 letters, square 162)  "irdunsunserdeutsch…ltenbrandeinheitwo"
      left over in the square (not used by the text): ee
      text letters not found in the square:            cciilnnrru

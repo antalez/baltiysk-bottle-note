@@ -49,5 +49,5 @@ if __name__ == "__main__":
         missing = Counter({c: got[c] - have[c] for c in ALPHABET if got[c] > have[c]})
         print(f"S{k + 1}: text[{a}:{b}] ({b - a} letters, square {sum(have.values())})  "
               f"\"{text[a:a + 18]}…{text[b - 18:b]}\"")
-        print(f"     left over in the square (not used by the text): {''.join(sorted(extra.elements())) or '—'}")
-        print(f"     text letters not found in the square:            {''.join(sorted(missing.elements())) or '—'}")
+        print(f"     left over in the square (not used by the text): {''.join(sorted(extra.elements())) or 'none'}")
+        print(f"     text letters not found in the square:            {''.join(sorted(missing.elements())) or 'none'}")

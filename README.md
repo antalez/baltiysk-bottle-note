@@ -1,8 +1,10 @@
-# The Baltiysk bottle note — solved
+# The Baltiysk bottle note, solved
+
+*[Русская версия](README.ru.md) (AI-translated).*
 
 In 2015 workers digging a gas trench by Lenin Street 64–66 in Baltiysk (Kaliningrad region, Russia; formerly Pillau) found a bottle with two exercise-book sheets covered in letter groups that nobody could read: *"en'ifvn d't'öhn'fdê elhrikiracel etê deluwrs …"*. The note became No. 19 on Klaus Schmeh's list of the most important unsolved encrypted messages.
 
-**It is a song.** The note is the text of the GDR youth song **"Einheitslied"** from the *Freundschaftskantate der Jugend* (words: Herbert Keller, music: André Asriel) — the stanzas *Freundschaft! Allen Völkern Freundschaft …*, *Einheit! …* and the start of *Frieden! …* — cut into six consecutive pieces of about 169 letters. Each piece was written into a 13 × 13 square with its letters jumbled, and the squares were copied row by row with invented word breaks. Below the last square stands **"eimat"** followed by dots — most likely the end of *Heimat* (*"Singen soll die Heimat"*), which follows a few words after the last square's text.
+**It is a song.** The note is the text of the GDR youth song **"Einheitslied"** from the *Freundschaftskantate der Jugend* (words: Herbert Keller, music: André Asriel). Its stanzas *Freundschaft! Allen Völkern Freundschaft …*, *Einheit! …* and the start of *Frieden! …* were cut into six consecutive pieces of about 169 letters. Each piece was written into a 13 × 13 square with its letters jumbled, and the squares were copied row by row with invented word breaks. Below the last square stands **"eimat"** followed by dots: most likely the end of *Heimat* (*"Singen soll die Heimat"*), which follows a few words after the last square's text.
 
 ## The proof
 
@@ -10,12 +12,12 @@ Jumbling letters inside a square changes their order, not their counts. Cutting 
 
 | Square | Cells | Piece of the song (letters) | Left over in the square | Text letters missing |
 |---|---|---|---|---|
-| S1 | 166 | 0–157 — *"Freundschaft! Allen Völkern Freundschaft …"* | d e e e i l l n s s t | f u |
-| **S2** | **169** | **157–325** — *"…werden wir erringen, wenn wir fest zusammenstehn …"* | **l** | **none** |
-| S3 | 162 | 325–495 — *"…unser Deutschland ganz gehören … Einheit! …"* | e e | c c i i l n n r r u |
-| S4 | 169 | 495–658 — *"…wollen alle guten Menschen für das deutsche Land …"* | i i l l l l n n t | e e e |
-| S5 | 169 | 658–827 — *"…keine Bombe zerstören … Frieden!"* | d f n n | h i s u |
-| S6 | 143 | 827–974 — *"…Völkern Frieden … wenn wir fest zusammensteh(n)"* | a d s s | c m r r t u u u |
+| S1 | 166 | 0–157: *"Freundschaft! Allen Völkern Freundschaft …"* | d e e e i l l n s s t | f u |
+| **S2** | **169** | **157–325**: *"…werden wir erringen, wenn wir fest zusammenstehn …"* | **l** | **none** |
+| S3 | 162 | 325–495: *"…unser Deutschland ganz gehören … Einheit! …"* | e e | c c i i l n n r r u |
+| S4 | 169 | 495–658: *"…wollen alle guten Menschen für das deutsche Land …"* | i i l l l l n n t | e e e |
+| S5 | 169 | 658–827: *"…keine Bombe zerstören … Frieden!"* | d f n n | h i s u |
+| S6 | 143 | 827–974: *"…Völkern Frieden … wenn wir fest zusammensteh(n)"* | a d s s | c m r r t u u u |
 
 S2, letter by letter: all 168 letters of its piece are in the square; one *l* is left over.
 
@@ -25,7 +27,7 @@ square  28  24  16  14  13   7   7   7   7   7   6   6   5   5   4   3   3   2  
 song    28  24  16  14  13   7   7   7   7   6   6   6   5   5   4   3   3   2   2   2   1
 ```
 
-What remains in the other squares: S1 and S3 have fewer cells than their text (166 and 162 instead of 169 — the writer dropped some letters), and the other squares differ by a few letters. For S4 we checked on the 2015 scans: its extra *l* are clearly written *l*, so those differences are on the paper (copying slips, or the wording of the copy the writer used). The other squares have not been re-checked letter by letter.
+What remains in the other squares: S1 and S3 have fewer cells than their text (166 and 162 instead of 169; the writer dropped some letters), and the other squares differ by a few letters. For S4 we checked on the 2015 scans: its extra *l* are clearly written *l*, so those differences are on the paper (copying slips, or the wording of the copy the writer used). The other squares have not been re-checked letter by letter.
 
 ## Why this is not a coincidence
 
@@ -39,14 +41,14 @@ All numbers below use one measure: letters left over in the square plus letters 
 ## How the note was made
 
 - **Pieces.** The song's letters (no spaces or punctuation; the writer kept *ö* and *ü*) cut into consecutive pieces of about 169 = 13 × 13. Whether S1 begins with the title *Einheitslied* is open: with the title in front the total fit improves slightly (`results/partition_with_title.txt`).
-- **Filling.** Each piece written into its square letter by letter, moving right and down: the next song letter sits 2–4 cells to the right in the same row, or in the next row down, more often than chance, and almost never back in the row above — positive in every square, clearly so in combination (`results/structure.txt`). The exact writing order cannot be recovered; the song repeats letters too much.
+- **Filling.** Each piece written into its square letter by letter, moving right and down: the next song letter sits 2–4 cells to the right in the same row, or in the next row down, more often than chance, and almost never back in the row above. This holds in every square and is clear in combination (`results/structure.txt`). The exact writing order cannot be recovered; the song repeats letters too much.
 - **Word ends marked.** An apostrophe marks the last letter of a word (*t′* ends *Freundschaft*, *Einheit*, *Welt*; *n′* ends *allen*, *wollen*, *singen* …); *ê* marks a word-final *e* (`results/marks.txt`).
 - **Copied** row by row onto the two sheets with invented word breaks; each square's last letter underlined.
-- **Dotted groups** (*r.s.f.d. c.f. f.t′.f.*, *r.l.b. s.n.c.*, …): letters of the song placed in reserved cells around each square's centre. Their meaning is open — see `docs/open_questions.md`.
+- **Dotted groups** (*r.s.f.d. c.f. f.t′.f.*, *r.l.b. s.n.c.*, …): letters of the song placed in reserved cells around each square's centre. Their meaning is open (see `docs/open_questions.md`).
 
 ## How it was found
 
-The note itself pointed the way. Its sections are 13 × 13 squares filled by hand: letters 2–3 cells apart, along the row or into the next row down, are weakly linked, but no key or rule reorders them (hundreds of grilles, routes and keyed transpositions failed; see `docs/method.md`). So the text could only be **recognised**, not decrypted. Sections 2–5 share about 60 letters each that section 1 lacks — the shape of stanzas with a refrain after an opening — and the letters favour a collective German "wir werden … wenn …" voice with words like *Freundschaft*, *Frieden* and *Heimat* (*eimat* below the last square). That pointed to a song of the Pioneer/youth kind. Letter counts survive any jumbling, so every square was compared, by counts, with every window of candidate texts. Bibles, German Wikisource, books, the Soviet-German newspaper *Freundschaft*, German folk songs and Russian songs gave no match. A collection of 1,762 songs and poems, most of them from the GDR song archive *lieder-aus-der-ddr.de*, contained the Einheitslied.
+The note itself pointed the way. Its sections are 13 × 13 squares filled by hand: neighbouring letters are unrelated, and no key or rule puts them back in order (hundreds of grilles, routes and keyed transpositions failed; see `docs/method.md`). So the text could only be **recognised**, not decrypted. Sections 2–5 share about 60 letters each that section 1 lacks, which is the shape of stanzas with a refrain after an opening. The letters also favour a collective German "wir werden … wenn …" voice with words like *Freundschaft*, *Frieden* and *Heimat* (*eimat* below the last square). That pointed to a song of the Pioneer/youth kind. Letter counts survive any jumbling, so every square was compared, by counts, with every window of candidate texts. Bibles, German Wikisource, books, the Soviet-German newspaper *Freundschaft*, German folk songs and Russian songs gave no match. A collection of 1,762 songs and poems, most of them from the GDR song archive *lieder-aus-der-ddr.de*, contained the Einheitslied.
 
 ## Reproduce
 
@@ -77,10 +79,11 @@ open ../dashboard/index.html                                # or double-click it
 
 ## Files
 
-- `transcript/transcript_v3.4.txt` — the note, line by line; `transcript/NOTATION.md` explains the notation; `transcript/earlier/` holds the 2015 forum transcription.
-- `src/` — the scripts above; `results/` — their output; `dashboard/` — the interactive page.
-- `docs/method.md` — what was tried, what failed and why, and how the solution was confirmed.
-- `docs/open_questions.md` — the dotted groups, the remaining differences, the author.
+- `transcript/transcript_v3.4.txt`: the note, line by line; `transcript/NOTATION.md` explains the notation; `transcript/earlier/` holds the 2015 forum transcription.
+- `src/`: the scripts above; `results/`: their output; `dashboard/`: the interactive page.
+- `docs/method.md`: what was tried, what failed and why, and how the solution was confirmed.
+- `docs/open_questions.md`: the dotted groups, the remaining differences, the author.
+- `README.ru.md`, `docs/method.ru.md`, `docs/open_questions.ru.md`: Russian versions (AI-translated).
 
 ## Credits
 
