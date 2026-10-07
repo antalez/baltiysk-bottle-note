@@ -37,8 +37,8 @@ In 2015 workers digging a gas trench by Lenin Street 64–66 in Baltiysk (Kalini
 ```mermaid
 flowchart LR
   N["The note: 6 sections,<br/>random-looking letters"] --> Q["13 × 13 squares:<br/>word breaks fall on row ends"]
-  Q --> K["No key or rule works:<br/>letters placed by hand"]
-  K --> R["So the text must be<br/>recognised, not decrypted"]
+  Q --> K["No tested key or rule works:<br/>most likely placed by hand"]
+  K --> R["So try to recognise<br/>the text instead"]
   N --> F["S2–S5 share about 60 letters,<br/>S1 does not: a refrain"]
   N --> V["A 'wir werden … wenn …' voice;<br/>Freundschaft, Frieden, (H)eimat"]
   F --> G["A German youth song"]
@@ -71,16 +71,20 @@ song    28  24  16  14  13   7   7   7   7   6   6   6   5   5   4   3   3   2  
 
 <p align="center"><img src="docs/img/s2.png" alt="Square S2 in the dashboard: 168 of 169 cells crossed out, one l left over"></p>
 
-What remains in the other squares: S1 and S3 have fewer cells than their text (166 and 162 instead of 169; the writer dropped some letters), and the other squares differ by a few letters. For S4 we checked on the 2015 scans: its extra *l* are clearly written *l*, so those differences are on the paper (copying slips, or the wording of the copy the writer used). The other squares have not been re-checked letter by letter. With the song's title *Einheitslied* counted in front of S1, as the dashboard does, S1 is 7 letters off instead of 13 ([`results/partition_with_title.txt`](results/partition_with_title.txt)).
+What remains in the other squares:
+
+- **S1 probably starts with the song's title.** Without it, S1's piece has 157 letters for 166 cells, and 9 of the 11 left-over letters (*d e e e i l n s t*) are letters of the word *Einheitslied*; eleven random letters from S1 would share that many about 1 time in 400. With the title counted in front, as the dashboard does, S1 is 7 letters off instead of 13 ([`results/partition_with_title.txt`](results/partition_with_title.txt)).
+- **S3 is short:** 162 cells for a 170-letter piece, so the writer dropped some letters.
+- **The other squares differ by a few letters.** For S4 we checked on the 2015 scans: its extra *l* are clearly written *l*, so those differences are on the paper (copying slips, or the wording of the copy the writer used). The other squares have not been re-checked letter by letter.
 
 ## Why this is not a coincidence
 
 All numbers below use one measure: letters left over in the square plus letters of the text missing from it.
 
-- **Chance.** In 8.9 million letters of German news ([Leipzig corpus](https://wortschatz.uni-leipzig.de/en/download/German)), the best window for each square, chosen freely, leaves 20–36 letters unaccounted for (S2: 24). The song, cut once into consecutive pieces, leaves S2 1 and the others 8–13 ([`src/null_test.py`](src/null_test.py), [`results/null_test.txt`](results/null_test.txt)).
+- **Chance.** In 8.9 million letters of German news ([Leipzig corpus](https://wortschatz.uni-leipzig.de/en/download/German)), the best window for each square, chosen freely, leaves 20–36 letters unaccounted for (S2: 24). Allowed the same freedom of length as the song pieces (±25 letters), the best news windows still leave 19–33 (S2: 21). The song, cut once into consecutive pieces, a much stricter condition, leaves S2 1 and the others 8–13. This is a benchmark against ordinary German, not an exact false-positive probability ([`src/null_test.py`](src/null_test.py), [`results/null_test.txt`](results/null_test.txt)).
 - **Other transcriptions.** A transcription [posted on d3.ru](https://simple_life.d3.ru/v-baltiiske-nashli-butylku-s-shifrovkoi-na-neizvestnom-iazyke-784251/) in July 2015 and [Thomas Ernst's of 2017](https://scienceblogs.de/klausis-krypto-kolumne/2017/10/17/the-top-50-unsolved-encrypted-messages-19-the-kalinigrad-bottle-post/) give the same result for S2 as ours (all 168 letters, one extra *l*). Ours started from Ernst's and was re-verified symbol by symbol ([`src/check_transcriptions.py`](src/check_transcriptions.py), [`results/check_transcriptions.txt`](results/check_transcriptions.txt)).
-- **Order.** Each square's best-matching stretch, found independently, falls in the song's own order (chance 1 in 720; [`src/significance.py`](src/significance.py)).
-- **The marks.** The apostrophes mark word ends. In S1, S3 and S4 no other stretch of the song matches a square's marked letters as well as its own piece (p ≈ 0.001 each); S2 p ≈ 0.01, S5 ≈ 0.07, S6 not significant ([`results/significance.txt`](results/significance.txt)).
+- **Order.** Each square's best-matching stretch, found independently, falls in the song's own order. If the six stretches could have landed anywhere independently, that order would come up 1 time in 720; the song's repeated refrain makes this figure approximate ([`src/significance.py`](src/significance.py)).
+- **The marks.** The apostrophes match the word ends of each square's piece, so we read them as word-end marks. In S1, S3 and S4 no other stretch of the song matches a square's marked letters as well as its own piece (p ≈ 0.001 each); S2 p ≈ 0.01, S5 ≈ 0.07, S6 not significant ([`results/significance.txt`](results/significance.txt)).
 
 ## How it was found
 
@@ -90,7 +94,7 @@ Nobody guessed "a GDR song". The note itself showed what kind of text it was. Th
 
 <p align="center"><img src="docs/img/rows.png" width="560" alt="The six squares with word breaks at row ends highlighted"></p>
 
-**2. No key.** Hundreds of grilles, routes and keyed transpositions, each first shown to recover planted German text, read nothing. Neighbouring letters are unrelated: the letters were placed by hand. So the text could only be **recognised**, not decrypted ([`docs/method.md`](docs/method.md)).
+**2. No key found.** Hundreds of grilles, routes and keyed transpositions, each first shown to recover planted German text, read nothing, and neighbouring letters are unrelated. That does not prove no key exists, but the simplest explanation is letters placed by hand. So instead of decrypting, we tried to **recognise** the text ([`docs/method.md`](docs/method.md)).
 
 **3. A refrain.** Squares 2–5 are more alike in their letters than chance allows (p 0.004 against random splits, 0.03 against real German), sharing about 60 letters each, while square 1 stands apart. An opening followed by a repeated part is the shape of a song with a refrain.
 
@@ -104,12 +108,12 @@ We got things wrong on the way (spelling-habit theories, a Russian "private alph
 
 ## How the note was made
 
-- **Pieces.** The song's letters (no spaces or punctuation; the writer kept *ö* and *ü*) cut into consecutive pieces of about 169 = 13 × 13. Whether S1 begins with the title *Einheitslied* is open: with the title in front the total fit improves slightly.
-- **Filling.** Each piece written into its square letter by letter, moving right and down: the next song letter sits 2–4 cells to the right in the same row, or in the next row down, more often than chance, and almost never back in the row above. This holds in every square and is clear in combination. The exact writing order cannot be recovered; the song repeats letters too much.
+- **Pieces.** The song's letters (no spaces or punctuation; the writer kept *ö* and *ü*) cut into consecutive pieces of about 169 = 13 × 13. S1 probably begins with the title *Einheitslied* (see [the proof](#the-proof)).
+- **Filling.** Each piece written into its square with the letters jumbled. Consecutive song letters turn up 2–4 cells to the right in the same row, or in the next row down, more often than chance, with no consistent pattern in the row above. This holds in every square and is clear in combination. It fits a writer working right and down through the square, but it is a pattern in letter pairs, not a recovered writing path: the song repeats letters too much for the exact order to be reconstructed.
 
 <p align="center"><img src="docs/img/hops.png" alt="Where the next letter of the song sits relative to the previous one: right along the row or down into the next row"></p>
 
-- **Word ends marked.** An apostrophe marks the last letter of a word (*t′* ends *Freundschaft*, *Einheit*, *Welt*; *n′* ends *allen*, *wollen*, *singen* …); *ê* marks a word-final *e* ([`results/marks.txt`](results/marks.txt)).
+- **Word ends marked.** The apostrophes match the last letters of words (*t′* ends *Freundschaft*, *Einheit*, *Welt*; *n′* ends *allen*, *wollen*, *singen* …); *ê* matches a word-final *e* ([`results/marks.txt`](results/marks.txt)).
 - **Copied** row by row onto the two sheets with invented word breaks; each square's last letter underlined.
 - **Dotted groups** (*r.s.f.d. c.f. f.t′.f.*, *r.l.b. s.n.c.*, …): letters of the song placed in reserved cells around each square's centre.
 
