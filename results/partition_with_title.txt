@@ -1,0 +1,20 @@
+title: einheitslied; total letters off: 52 (added+removed); text ends at 986 of 1208 (next: 'nsingensolldieheimatsinge')
+
+S1: text[0:169] (169 letters, square 166)  "einheitsliedfreund…ftfreundschaftwerd"
+     left over in the square (not used by the text): ls
+     text letters not found in the square:            fhiiu
+S2: text[169:337] (168 letters, square 169)  "enwirerringenwennw…ufdiefreundschaftw"
+     left over in the square (not used by the text): l
+     text letters not found in the square:            —
+S3: text[337:507] (170 letters, square 162)  "irdunsunserdeutsch…ltenbrandeinheitwo"
+     left over in the square (not used by the text): ee
+     text letters not found in the square:            cciilnnrru
+S4: text[507:670] (163 letters, square 169)  "llenallegutenmensc…enwehnspielundschl"
+     left over in the square (not used by the text): iillllnnt
+     text letters not found in the square:            eee
+S5: text[670:839] (169 letters, square 169)  "afunsrerkindersoll…mmenstehnfriedenal"
+     left over in the square (not used by the text): dfnn
+     text letters not found in the square:            hisu
+S6: text[839:986] (147 letters, square 143)  "lenvolkernfriedenr…irfestzusammensteh"
+     left over in the square (not used by the text): adss
+     text letters not found in the square:            cmrrtuuu

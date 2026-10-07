@@ -1,0 +1,15 @@
+song: 1196 letters; note: 978 cells in 6 squares
+
+square  cells  best stretch of the song        letters off  stretch starts / ends
+  S1    166   song[   0: 163]  (163 letters)     7        "freundschaft…" / "…ftwerdenwire"
+  S2    169   song[ 144: 313]  (169 letters)     1        "undschaftwer…" / "…enwiraufdief"
+  S3    162   song[ 333: 495]  (162 letters)     5        "serdeutschla…" / "…andeinheitwo"
+  S4    169   song[ 487: 656]  (169 letters)     6        "inheitwollen…" / "…hnspielundsc"
+  S5    169   song[ 657: 826]  (169 letters)     4        "lafunsrerkin…" / "…tehnfriedena"
+  S6    143   song[ 807: 950]  (143 letters)     7        "sammenstehnf…" / "…enwirerringe"
+
+S2 letter by letter (square vs song stretch):
+  letter   e   n   s   r   i   f   h   u   w   d   l   a   o   t   m   c   g   b   k   z   p
+  square  28  24  16  14  13   7   7   7   7   6   7   6   5   5   4   3   3   2   2   2   1
+  song    28  24  16  14  13   7   7   7   7   7   6   6   5   5   4   3   3   2   2   2   1
+  19 of 21 letters have identical counts; letters off: 1

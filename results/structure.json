@@ -1,0 +1,464 @@
+{
+ "rows": {
+  "per_square": [
+   {
+    "square": 1,
+    "cells": 166,
+    "full_rows": false,
+    "breaks": 29,
+    "row_ends": 12,
+    "on_row_end": 5,
+    "expected": 2.1
+   },
+   {
+    "square": 2,
+    "cells": 169,
+    "full_rows": true,
+    "breaks": 31,
+    "row_ends": 12,
+    "on_row_end": 5,
+    "expected": 2.3
+   },
+   {
+    "square": 3,
+    "cells": 162,
+    "full_rows": false,
+    "breaks": 34,
+    "row_ends": 12,
+    "on_row_end": 3,
+    "expected": 2.6
+   },
+   {
+    "square": 4,
+    "cells": 169,
+    "full_rows": true,
+    "breaks": 33,
+    "row_ends": 12,
+    "on_row_end": 4,
+    "expected": 2.4
+   },
+   {
+    "square": 5,
+    "cells": 169,
+    "full_rows": true,
+    "breaks": 36,
+    "row_ends": 12,
+    "on_row_end": 8,
+    "expected": 2.6
+   },
+   {
+    "square": 6,
+    "cells": 143,
+    "full_rows": true,
+    "breaks": 26,
+    "row_ends": 10,
+    "on_row_end": 6,
+    "expected": 1.9
+   }
+  ],
+  "total": 31,
+  "expected": 13.8,
+  "p": 5e-05
+ },
+ "groups": [
+  {
+   "square": 1,
+   "word": "r.s.f.d.",
+   "cells": [
+    54,
+    55,
+    56,
+    57
+   ]
+  },
+  {
+   "square": 1,
+   "word": "c.f.",
+   "cells": [
+    105,
+    106
+   ]
+  },
+  {
+   "square": 1,
+   "word": "f.t.'f.",
+   "cells": [
+    134,
+    135,
+    136
+   ]
+  },
+  {
+   "square": 2,
+   "word": "r.l.b.",
+   "cells": [
+    41,
+    42,
+    43
+   ]
+  },
+  {
+   "square": 2,
+   "word": "s.n.c.",
+   "cells": [
+    125,
+    126,
+    127
+   ]
+  },
+  {
+   "square": 3,
+   "word": "r.l.n.",
+   "cells": [
+    96,
+    97,
+    98
+   ]
+  },
+  {
+   "square": 4,
+   "word": "d.s.z.",
+   "cells": [
+    88,
+    89,
+    90
+   ]
+  },
+  {
+   "square": 5,
+   "word": "n.t.d.",
+   "cells": [
+    78,
+    79,
+    80
+   ]
+  },
+  {
+   "square": 6,
+   "word": "n'.r.n.",
+   "cells": [
+    79,
+    80,
+    81
+   ]
+  }
+ ],
+ "alike": {
+  "chi2": 28.6,
+  "split_mean": 51.0,
+  "split_sd": 9.7,
+  "p_split": 0.0042,
+  "counts": {
+   "w": [
+    4,
+    7,
+    6,
+    6,
+    7,
+    7
+   ],
+   "u": [
+    12,
+    7,
+    7,
+    7,
+    6,
+    5
+   ],
+   "g": [
+    1,
+    3,
+    3,
+    4,
+    3,
+    2
+   ],
+   "n": [
+    18,
+    24,
+    21,
+    27,
+    25,
+    21
+   ],
+   "f": [
+    14,
+    7,
+    7,
+    5,
+    5,
+    8
+   ],
+   "c": [
+    7,
+    3,
+    2,
+    3,
+    2,
+    0
+   ],
+   "a": [
+    10,
+    6,
+    8,
+    6,
+    6,
+    5
+   ],
+   "l": [
+    10,
+    7,
+    2,
+    13,
+    4,
+    7
+   ]
+  },
+  "sizes": [
+   166,
+   169,
+   162,
+   169,
+   169,
+   143
+  ],
+  "german_mean": 45.6,
+  "german_sd": 9.9,
+  "p_german": 0.026
+ },
+ "mix": {
+  "letters": 978,
+  "rows": [
+   {
+    "letter": "f",
+    "note": 46,
+    "german": 17.8,
+    "z": 5.0
+   },
+   {
+    "letter": "w",
+    "note": 37,
+    "german": 14.4,
+    "z": 4.0
+   },
+   {
+    "letter": "n",
+    "note": 136,
+    "german": 97.1,
+    "z": 3.2
+   },
+   {
+    "letter": "e",
+    "note": 173,
+    "german": 157.5,
+    "z": 1.2
+   },
+   {
+    "letter": "d",
+    "note": 55,
+    "german": 46.4,
+    "z": 1.0
+   },
+   {
+    "letter": "l",
+    "note": 43,
+    "german": 36.0,
+    "z": 0.9
+   },
+   {
+    "letter": "r",
+    "note": 77,
+    "german": 73.0,
+    "z": 0.4
+   },
+   {
+    "letter": "h",
+    "note": 42,
+    "german": 40.4,
+    "z": 0.2
+   },
+   {
+    "letter": "s",
+    "note": 66,
+    "german": 64.8,
+    "z": 0.1
+   },
+   {
+    "letter": "u",
+    "note": 44,
+    "german": 43.1,
+    "z": 0.1
+   },
+   {
+    "letter": "m",
+    "note": 25,
+    "german": 27.2,
+    "z": -0.3
+   },
+   {
+    "letter": "q",
+    "note": 0,
+    "german": 0.3,
+    "z": -0.5
+   },
+   {
+    "letter": "x",
+    "note": 0,
+    "german": 0.6,
+    "z": -0.6
+   },
+   {
+    "letter": "z",
+    "note": 9,
+    "german": 12.2,
+    "z": -0.7
+   },
+   {
+    "letter": "i",
+    "note": 69,
+    "german": 77.7,
+    "z": -0.8
+   },
+   {
+    "letter": "y",
+    "note": 0,
+    "german": 1.2,
+    "z": -0.8
+   },
+   {
+    "letter": "j",
+    "note": 0,
+    "german": 2.5,
+    "z": -1.0
+   },
+   {
+    "letter": "c",
+    "note": 17,
+    "german": 26.5,
+    "z": -1.4
+   },
+   {
+    "letter": "k",
+    "note": 7,
+    "german": 14.5,
+    "z": -1.5
+   },
+   {
+    "letter": "t",
+    "note": 47,
+    "german": 62.1,
+    "z": -1.6
+   },
+   {
+    "letter": "v",
+    "note": 3,
+    "german": 9.2,
+    "z": -1.6
+   },
+   {
+    "letter": "o",
+    "note": 18,
+    "german": 30.2,
+    "z": -1.7
+   },
+   {
+    "letter": "p",
+    "note": 2,
+    "german": 10.1,
+    "z": -1.8
+   },
+   {
+    "letter": "g",
+    "note": 16,
+    "german": 29.1,
+    "z": -2.0
+   },
+   {
+    "letter": "a",
+    "note": 41,
+    "german": 64.2,
+    "z": -2.3
+   },
+   {
+    "letter": "b",
+    "note": 5,
+    "german": 20.1,
+    "z": -2.5
+   }
+  ]
+ },
+ "hops": {
+  "grid": [
+   [
+    -2.75,
+    -0.29,
+    2.45,
+    -0.31,
+    -1.62,
+    0.52,
+    0.64,
+    -0.44,
+    0.67
+   ],
+   [
+    -0.4,
+    -0.09,
+    1.29,
+    1.14,
+    null,
+    -1.12,
+    1.3,
+    3.16,
+    1.88
+   ],
+   [
+    0.88,
+    1.66,
+    1.55,
+    1.94,
+    1.26,
+    2.01,
+    1.87,
+    1.93,
+    3.09
+   ],
+   [
+    0.35,
+    2.42,
+    1.74,
+    -0.04,
+    1.89,
+    0.43,
+    0.15,
+    -0.16,
+    0.07
+   ]
+  ],
+  "rows": [
+   -1,
+   0,
+   1,
+   2
+  ],
+  "cols": [
+   -4,
+   -3,
+   -2,
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "per_square": [
+   2.3,
+   2.2,
+   1.9,
+   1.6,
+   1.4,
+   1.5
+  ],
+  "combined": 4.5
+ }
+}

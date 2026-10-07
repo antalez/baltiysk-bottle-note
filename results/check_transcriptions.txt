@@ -1,0 +1,3 @@
+ours (v3.4)                  S2 letters 169; vs song piece (168): differences {'l': 1}
+d3.ru, July 2015             S2 letters 169; vs song piece (168): differences {'l': 1}
+Thomas Ernst, 2017           S2 letters 169; vs song piece (168): differences {'l': 1}  (computed from his transcription, not reproduced here)

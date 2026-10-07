@@ -1,0 +1,20 @@
+title: (none); total letters off: 58 (added+removed); text ends at 974 of 1196 (next: 'nsingensolldieheimatsinge')
+
+S1: text[0:157] (157 letters, square 166)  "freundschaftallenv…ftfreundschaftwerd"
+     left over in the square (not used by the text): deeeillnsst
+     text letters not found in the square:            fu
+S2: text[157:325] (168 letters, square 169)  "enwirerringenwennw…ufdiefreundschaftw"
+     left over in the square (not used by the text): l
+     text letters not found in the square:            —
+S3: text[325:495] (170 letters, square 162)  "irdunsunserdeutsch…ltenbrandeinheitwo"
+     left over in the square (not used by the text): ee
+     text letters not found in the square:            cciilnnrru
+S4: text[495:658] (163 letters, square 169)  "llenallegutenmensc…enwehnspielundschl"
+     left over in the square (not used by the text): iillllnnt
+     text letters not found in the square:            eee
+S5: text[658:827] (169 letters, square 169)  "afunsrerkindersoll…mmenstehnfriedenal"
+     left over in the square (not used by the text): dfnn
+     text letters not found in the square:            hisu
+S6: text[827:974] (147 letters, square 143)  "lenvolkernfriedenr…irfestzusammensteh"
+     left over in the square (not used by the text): adss
+     text letters not found in the square:            cmrrtuuu

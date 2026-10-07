@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Baltiysk Bottle Note</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* An exercise-book page: squared paper, fountain-pen blue for the writer, margin red for our marks. */
+:root{
+  --paper:#f5f6f2; --sheet:#fbfbf8; --grid:#dbe3ea; --ink:#1f3f94; --inkSoft:rgba(31,63,148,.13);
+  --margin:#c2453b; --marginSoft:rgba(194,69,59,.14); --amber:#b7791f; --amberSoft:rgba(214,158,46,.24);
+  --fg:#1b2130; --muted:#5d6678; --line:#d6dbe2; --ok:#2f7a4b; --okSoft:rgba(47,122,75,.14); --dotSoft:rgba(138,109,31,.16);
+  --f-hand:"Caveat","Segoe Print","Bradley Hand",cursive; --f-ui:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#0f131b; --sheet:#141a24; --grid:#1f2836; --ink:#93b1ff; --inkSoft:rgba(147,177,255,.15);
+  --margin:#ff8577; --marginSoft:rgba(255,133,119,.16); --amber:#f2c14e; --amberSoft:rgba(242,193,78,.2);
+  --fg:#e5e9f0; --muted:#9aa4b5; --line:#2a3342; --ok:#6fd39a; --okSoft:rgba(111,211,154,.16); --dotSoft:rgba(226,192,104,.16); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#0f131b; --sheet:#141a24; --grid:#1f2836; --ink:#93b1ff; --inkSoft:rgba(147,177,255,.15);
+  --margin:#ff8577; --marginSoft:rgba(255,133,119,.16); --amber:#f2c14e; --amberSoft:rgba(242,193,78,.2);
+  --fg:#e5e9f0; --muted:#9aa4b5; --line:#2a3342; --ok:#6fd39a; --okSoft:rgba(111,211,154,.16); --dotSoft:rgba(226,192,104,.16); color-scheme:dark}
+*{box-sizing:border-box} [hidden]{display:none!important}
+body{margin:0;background:var(--paper);color:var(--fg);font:14px/1.5 var(--f-ui);
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:22px 22px;background-attachment:fixed}
+.wrap{max-width:1240px;margin:0 auto;padding-inline:16px;padding-block:22px 48px;display:grid;gap:18px}
+h1{font:700 2.4rem/1 var(--f-hand);color:var(--ink);margin:0}
+.sub{color:var(--muted);max-width:80ch;margin:6px 0 0}
+.sub b{color:var(--fg)}
+.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.tabs{display:flex;flex-wrap:wrap;gap:4px;background:var(--sheet);border:1px solid var(--line);border-radius:8px;padding:3px}
+.tabs button{font:500 13px var(--f-ui);border:0;background:transparent;color:var(--muted);padding:6px 11px;border-radius:6px;cursor:pointer}
+.tabs button[aria-pressed="true"]{background:var(--ink);color:var(--sheet)}
+.tabs button:hover:not([aria-pressed="true"]){background:var(--inkSoft);color:var(--fg)}
+.tabs .n{font:400 11px var(--f-mono);opacity:.8;margin-left:5px}
+button:focus-visible{outline:2px solid var(--margin);outline-offset:2px}
+.sheet{background:var(--sheet);border:1px solid var(--line);border-radius:10px;padding:16px;min-width:0}
+.cols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:18px;align-items:start}
+@media (max-width:900px){.cols{grid-template-columns:minmax(0,1fr)}}
+.stack{display:grid;gap:12px;min-width:0}
+h2{font:700 1.7rem/1 var(--f-hand);color:var(--ink);margin:0}
+.note{font-size:12.5px;color:var(--muted);margin:0;max-width:75ch}
+svg.board{width:100%;height:auto;display:block}
+.cell rect{fill:var(--sheet);stroke:var(--grid)}
+.cell text.gl{font:600 26px var(--f-hand);fill:var(--ink);text-anchor:middle;dominant-baseline:central}
+.cell text.mk{font:700 20px var(--f-hand);fill:var(--ink)}
+.cell.dot rect{fill:var(--dotSoft)}
+.cell.used text{opacity:.28}
+.cell.used line.x{stroke:var(--ok);stroke-width:2;opacity:.75}
+.cell.left rect{fill:var(--amberSoft);stroke:var(--amber);stroke-width:2}
+.cell.centre rect{stroke:var(--margin);stroke-width:2}
+.cell.hl rect{fill:var(--marginSoft);stroke:var(--margin);stroke-width:2.5}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:12px;color:var(--muted)}
+.sw{display:inline-block;width:12px;height:12px;border-radius:2px;vertical-align:-2px;margin-right:4px;border:1px solid var(--line)}
+.status{display:flex;flex-wrap:wrap;gap:8px 20px;align-items:baseline}
+.big{font:700 2rem/1 var(--f-hand);color:var(--ink)}
+.big.ok{color:var(--ok)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font:600 15px var(--f-mono);padding:2px 8px;border-radius:6px;border:1px solid var(--line)}
+.chip.left{background:var(--amberSoft);border-color:var(--amber)}
+.chip.miss{background:var(--marginSoft);border-color:var(--margin)}
+.lbl{font:600 11px var(--f-ui);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.piece{font:500 15px/1.85 var(--f-ui);background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:10px 12px;max-height:280px;overflow:auto}
+.piece .ctx{color:var(--muted);opacity:.55}
+.piece .w{white-space:nowrap}
+.piece .fin{text-decoration:underline;text-decoration-color:var(--margin);text-decoration-thickness:2px;text-underline-offset:3px}
+.piece .cut{color:var(--margin);font-weight:700}
+.tblWrap{overflow-x:auto}
+table{border-collapse:collapse;font:13px var(--f-mono);font-variant-numeric:tabular-nums}
+td,th{padding:3px 7px;border-bottom:1px solid var(--line);text-align:center}
+th{font:600 11px var(--f-ui);color:var(--muted);text-transform:uppercase;letter-spacing:.05em;text-align:left}
+td.lt{font:600 18px var(--f-hand);color:var(--ink)}
+td.plus{color:var(--amber);font-weight:600} td.minus{color:var(--margin);font-weight:600}
+.minis{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px}
+@media (max-width:700px){.minis{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.mini{display:grid;gap:4px;cursor:pointer;border:1px solid transparent;border-radius:8px;padding:6px;background:transparent;color:inherit;font:inherit;text-align:left}
+.mini[aria-pressed="true"]{border-color:var(--ink);background:var(--inkSoft)}
+.mini svg{width:100%;height:auto}
+.mini .cap{font:500 12px var(--f-ui);color:var(--muted)}
+.mini .cap b{color:var(--fg)}
+.page{position:relative;padding-left:52px}
+.page::before{content:"";position:absolute;left:36px;top:0;bottom:0;width:2px;background:var(--margin);opacity:.55}
+.tline{display:flex;flex-wrap:wrap;gap:2px 12px;align-items:baseline;min-height:34px;border-bottom:1px dashed var(--grid);position:relative}
+.tline .ln{position:absolute;left:-50px;width:30px;text-align:right;font:11px var(--f-mono);color:var(--muted);top:9px}
+.tw{font:600 25px/1.25 var(--f-hand);color:var(--ink);cursor:pointer;border-radius:4px;padding:0 2px}
+.tw:hover{background:var(--marginSoft)}
+.tw.dotw{color:var(--amber)} .tw.out{color:var(--muted);font-style:italic;cursor:default}
+.tw.s0{color:#1f3f94} .tw.s1{color:#2a6f97} .tw.s2{color:#5b3f94} .tw.s3{color:#2f7a4b} .tw.s4{color:#8a4f1f} .tw.s5{color:#9b2c5a}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .tw.s0{color:#93b1ff} :root:not([data-theme="light"]) .tw.s1{color:#7cc4e8} :root:not([data-theme="light"]) .tw.s2{color:#b9a2f0} :root:not([data-theme="light"]) .tw.s3{color:#6fd39a} :root:not([data-theme="light"]) .tw.s4{color:#f2b27a} :root:not([data-theme="light"]) .tw.s5{color:#f08ab4}}
+.endmark{font:11px var(--f-mono);color:var(--margin);align-self:center}
+.prose{max-width:78ch;display:grid;gap:10px}
+.prose p{margin:0}
+.prose code{font:12.5px var(--f-mono);background:var(--paper);padding:1px 5px;border-radius:4px}
+.story{display:grid;gap:16px;min-width:0}
+.wrap>*,.story>*{min-width:0}
+.lead{max-width:78ch;margin:0}
+.photos{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.photos figure{margin:0;display:grid;gap:4px}
+.photos img{width:100%;height:auto;border:1px solid var(--line);border-radius:6px;background:#fff}
+.photos figcaption{font-size:12px;color:var(--muted)}
+.step{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:18px;align-items:start}
+@media (max-width:900px){.step{grid-template-columns:minmax(0,1fr)}}
+.step .txt{display:grid;gap:8px;min-width:0}
+.step .fig{display:grid;gap:8px;min-width:0}
+.kick{font:600 11px var(--f-ui);letter-spacing:.08em;text-transform:uppercase;color:var(--margin)}
+.step h3{font:700 1.65rem/1.05 var(--f-hand);color:var(--ink);margin:0;text-wrap:balance}
+.step p{margin:0;max-width:66ch}
+.then{border-left:3px solid var(--margin);padding-left:10px;font-weight:500}
+.six{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.six figure{margin:0;display:grid;gap:2px}.six svg{width:100%;height:auto}
+.six figcaption{font:500 11.5px var(--f-ui);color:var(--muted)}
+.cell.rowend rect{fill:var(--inkSoft)}
+.cell.brk rect{fill:var(--marginSoft);stroke:var(--margin);stroke-width:2.5}
+.cell.dg rect{fill:var(--amberSoft);stroke:var(--amber);stroke-width:2.5}
+.cell.ctr rect{stroke:var(--fg);stroke-width:3}
+.bars td{padding:2px 6px}.bars td.b{width:100%;min-width:120px}
+.barbox{position:relative;height:14px}
+.barbox i{position:absolute;top:2px;height:10px;border-radius:2px}
+.barbox .axis{position:absolute;left:50%;top:0;bottom:0;width:1px;background:var(--line)}
+.cnt{display:inline-flex;align-items:center;gap:5px;font:12px var(--f-mono)}.cnt i{display:inline-block;height:10px;border-radius:2px}
+.heat td{width:46px;height:34px;text-align:center;border:1px solid var(--line);font:500 12px var(--f-mono)}
+.heat th{font:500 11px var(--f-ui);text-transform:none;letter-spacing:0;white-space:nowrap}
+.heat td.me{background:var(--fg);color:var(--sheet);font:600 11px var(--f-ui)}
+.fails td,.fails th{text-align:left;vertical-align:top}
+.fails td{font:13px/1.4 var(--f-ui)}
+ul.wrong{margin:0;padding-left:18px;display:grid;gap:6px;max-width:78ch}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>Baltiysk Bottle Note</h1>
+  <p class="sub">The note found in a bottle in Baltiysk in 2015 is the GDR song <b>"Einheitslied"</b> (<i>Freundschaftskantate der Jugend</i>; words Herbert Keller, music André Asriel), cut into six consecutive pieces. Each piece was written into a 13 × 13 square with its letters jumbled. Here every square is matched against its piece of the song: the letters the text uses are crossed out, and what remains is shown.</p>
+</header>
+<div class="bar">
+  <div class="tabs" id="views" role="group" aria-label="View">
+    <button data-v="solution" aria-pressed="true">Solution</button>
+    <button data-v="story" aria-pressed="false">How it was found</button>
+    <button data-v="note" aria-pressed="false">The note</button>
+    <button data-v="proof" aria-pressed="false">Proof</button>
+  </div>
+  <div class="tabs" id="sqTabs" role="group" aria-label="Square"></div>
+</div>
+
+<section id="v-solution" class="stack">
+  <div class="sheet"><div class="minis" id="minis"></div></div>
+  <div class="cols">
+    <div class="sheet stack">
+      <h2 id="sqTitle"></h2>
+      <svg class="board" id="board" role="img" aria-label="The square with used letters crossed out"></svg>
+      <div class="legend">
+        <span><i class="sw" style="background:var(--okSoft);border-color:var(--ok)"></i>crossed out: used by the text</span>
+        <span><i class="sw" style="background:var(--amberSoft);border-color:var(--amber)"></i>left over (which of several identical letters is the spare one is arbitrary)</span>
+        <span><i class="sw" style="background:var(--dotSoft)"></i>dotted group (also text letters)</span>
+        <span><i class="sw" style="border:2px solid var(--margin)"></i>centre</span>
+      </div>
+    </div>
+    <div class="sheet stack">
+      <div class="status" id="status"></div>
+      <div><div class="lbl">Left over in the square</div><div class="chips" id="leftChips"></div></div>
+      <div><div class="lbl">Text letters missing from the square</div><div class="chips" id="missChips"></div></div>
+      <div><div class="lbl" style="margin-bottom:4px">This square's piece of the song (word ends underlined; the marked letters on the note are the word ends)</div><div class="piece" id="piece"></div></div>
+      <div class="tblWrap"><table id="tbl"></table></div>
+      <p class="note" id="marksLine"></p>
+    </div>
+  </div>
+</section>
+
+<section id="v-story" class="story" hidden></section>
+
+<section id="v-note" class="sheet stack" hidden>
+  <h2>The note as written</h2>
+  <p class="note">The 25 lines from the two sheets (transcript v3.4), coloured by square. Click a word to see it in its square. Dotted groups in amber; "eimat" and its dots lie below the last square.</p>
+  <div class="page" id="page"></div>
+</section>
+
+<section id="v-proof" class="sheet stack" hidden>
+  <h2>Why this is the text</h2>
+  <div class="prose" id="proof"></div>
+</section>
+</div>
+
+<script src="data.js"></script>
+<script>
+(function(){
+if(!window.NOTE){document.body.innerHTML='<div class="wrap"><h1>Baltiysk Bottle Note</h1><p class="sub">dashboard/data.js is missing. Run <code>python src/fetch_song.py</code> and <code>python src/build_dashboard.py</code>, then reload.</p></div>';return}
+const N=window.NOTE, W=13, CS=44, AB="abcdefghijklmnopqrstuvwxyz", $=s=>document.querySelector(s);
+let S=1, VIEW=["story","note","proof"].includes(location.hash.slice(1))?location.hash.slice(1):"solution", HL=null;
+const count=s=>{const c={}; for(const ch of s) c[ch]=(c[ch]||0)+1; return c};
+function analyse(k){
+  const sq=N.squares[k], piece=N.text.slice(N.cuts[k],N.cuts[k+1]);
+  const H=count(sq.map(c=>c.l)), T=count(piece), used={}, left={}, miss={};
+  AB.split("").forEach(ch=>{const h=H[ch]||0,t=T[ch]||0; used[ch]=Math.min(h,t); left[ch]=h-used[ch]; miss[ch]=t-used[ch]});
+  const nl=Object.values(left).reduce((a,b)=>a+b,0), nm=Object.values(miss).reduce((a,b)=>a+b,0);
+  return {sq,piece,H,T,used,left,miss,nl,nm,usedN:sq.length-nl};
+}
+function boardSVG(k,mini){
+  const A=analyse(k), sq=A.sq, R=Math.ceil(sq.length/W), centre=Math.floor(R/2)*W+6;
+  let h=`<svg class="board" viewBox="-2 -2 ${W*CS+4} ${R*CS+4}" role="img" aria-label="Square S${k+1}">`;
+  const seen={};
+  sq.forEach((c,i)=>{const x=(i%W)*CS, y=Math.floor(i/W)*CS, cls=["cell"];
+    seen[c.l]=(seen[c.l]||0)+1;
+    if(seen[c.l]>A.used[c.l]) cls.push("left"); else cls.push("used");
+    if(c.d) cls.push("dot"); if(i===centre) cls.push("centre"); if(HL&&HL.k===k&&HL.cells.includes(i)) cls.push("hl");
+    const mk=c.m?"′":"";
+    h+=`<g class="${cls.join(" ")}"><rect x="${x}" y="${y}" width="${CS}" height="${CS}"/>`;
+    if(!mini){h+=`<text class="gl" x="${x+CS/2-(mk?3:0)}" y="${y+CS/2+1}">${c.g}</text>`+(mk?`<text class="mk" x="${x+CS/2+7}" y="${y+CS/2-2}">${mk}</text>`:"")}
+    if(!cls.includes("left")) h+=`<line class="x" x1="${x+8}" y1="${y+CS-8}" x2="${x+CS-8}" y2="${y+8}"/>`;
+    h+=`</g>`});
+  return h+`</svg>`;
+}
+function renderMinis(){
+  $("#minis").innerHTML=N.squares.map((_,k)=>{const A=analyse(k);
+    return `<button class="mini" data-k="${k}" aria-pressed="${k===S}">${boardSVG(k,true)}<span class="cap"><b>S${k+1}</b> · ${A.usedN}/${A.sq.length} used${A.nl?` · ${A.nl} left`:""}${A.nm?` · ${A.nm} missing`:""}</span></button>`}).join("");
+}
+function chips(obj,cls){const s=[]; Object.keys(obj).sort().forEach(ch=>{for(let i=0;i<obj[ch];i++) s.push(`<span class="chip ${cls}">${ch}</span>`)}); return s.join("")||`<span class="note">none</span>`}
+function renderSolution(){
+  const k=S, A=analyse(k);
+  $("#sqTitle").textContent=`Square S${k+1} · ${A.sq.length} cells · text letters ${N.cuts[k]}–${N.cuts[k+1]}`;
+  $("#board").outerHTML=boardSVG(k,false).replace('<svg class="board"','<svg class="board" id="board"');
+  $("#status").innerHTML=`<span class="big ${A.nl+A.nm<=1?"ok":""}">${A.usedN} of ${A.sq.length} cells used</span><span class="note">${A.nl} cell${A.nl===1?"":"s"} left over · ${A.nm} text letter${A.nm===1?"":"s"} missing · piece of ${A.piece.length} letters</span>`;
+  $("#leftChips").innerHTML=chips(A.left,"left"); $("#missChips").innerHTML=chips(A.miss,"miss");
+  // the piece with context, in real words
+  const a=N.cuts[k], b=N.cuts[k+1]; let h="";
+  N.words.forEach(w=>{ if(w.b<a-40||w.a>b+40) return;
+    let s=""; for(let j=w.a;j<w.b;j++){const ch=w.w[j-w.a]||""; const inside=j>=a&&j<b, fin=j===w.b-1;
+      if(j===a) s+=`<span class="cut">⟦</span>`; s+=`<span class="${inside?"":"ctx"} ${fin?"fin":""}">${ch}</span>`; if(j===b-1) s+=`<span class="cut">⟧</span>`}
+    h+=`<span class="w">${s}</span> `});
+  $("#piece").innerHTML=h;
+  const rows=AB.split("").filter(ch=>(A.H[ch]||0)+(A.T[ch]||0)>0).sort((x,y)=>((A.T[y]||0)+(A.H[y]||0))-((A.T[x]||0)+(A.H[x]||0)));
+  $("#tbl").innerHTML=`<tr><th>letter</th>${rows.map(ch=>`<td class="lt">${ch}</td>`).join("")}</tr><tr><th>square</th>${rows.map(ch=>`<td>${A.H[ch]||0}</td>`).join("")}</tr><tr><th>text</th>${rows.map(ch=>`<td>${A.T[ch]||0}</td>`).join("")}</tr><tr><th>diff</th>${rows.map(ch=>{const d=(A.H[ch]||0)-(A.T[ch]||0); return `<td class="${d>0?"plus":d<0?"minus":""}">${d>0?"+":""}${d||""}</td>`}).join("")}</tr>`;
+  const mk={}, fe={}; A.sq.forEach(c=>{if(c.m&&c.l!=="e") mk[c.l]=(mk[c.l]||0)+1});
+  N.words.forEach(w=>{const j=w.b-1; if(j>=a&&j<b){const ch=N.text[j]; if(ch!=="e") fe[ch]=(fe[ch]||0)+1}});
+  const fmt=o=>Object.entries(o).sort((x,y)=>y[1]-x[1]).map(([c,n])=>`${c}${n}`).join(" ");
+  $("#marksLine").innerHTML=`<b>Word-end marks.</b> Marked letters in the square: ${fmt(mk)} · word-final consonants in this piece: ${fmt(fe)}.`;
+}
+function renderNote(){
+  let h="", prev=-1;
+  N.lines.forEach((ws,li)=>{h+=`<div class="tline"><span class="ln">${li+1}</span>`;
+    ws.forEach(w=>{ if(w.out){h+=`<span class="tw out">${w.w}</span>`;return}
+      const k=w.cells.length?w.cells[0][0]:prev; if(k!==prev&&prev>=0) h+=`<span class="endmark">S${k+1} ▸</span>`; prev=k;
+      h+=`<span class="tw s${k} ${w.dot?"dotw":""}" data-k="${k}" data-cells="${w.cells.map(c=>c[1]).join(",")}">${w.w}</span>`});
+    h+=`</div>`});
+  $("#page").innerHTML=h;
+}
+function renderProof(){
+  const rows=N.squares.map((_,k)=>{const A=analyse(k); return `<tr><td>S${k+1}</td><td>${A.sq.length}</td><td>${N.cuts[k]}–${N.cuts[k+1]}</td><td>${A.usedN}</td><td>${A.nl}</td><td>${A.nm}</td></tr>`}).join("");
+  const A2=analyse(1), r2=AB.split("").filter(ch=>(A2.H[ch]||0)+(A2.T[ch]||0)>0).sort((x,y)=>(A2.T[y]||0)-(A2.T[x]||0));
+  $("#proof").innerHTML=`
+  <p><b>One cut, six pieces.</b> The title plus the song is cut once into six consecutive pieces, one per square, choosing the cut points that leave the fewest letters unmatched (no overlaps, no gaps).</p>
+  <div class="tblWrap"><table><tr><th>square</th><th>cells</th><th>text letters</th><th>cells used</th><th>left over</th><th>text missing</th></tr>${rows}</table></div>
+  <p><b>S2, letter by letter.</b> 168 of its 169 cells are the letters of its piece of the song; one <i>l</i> is left over.</p>
+  <div class="tblWrap"><table><tr><th>letter</th>${r2.map(c=>`<td class="lt">${c}</td>`).join("")}</tr><tr><th>square</th>${r2.map(c=>`<td>${A2.H[c]||0}</td>`).join("")}</tr><tr><th>text</th>${r2.map(c=>`<td>${A2.T[c]||0}</td>`).join("")}</tr></table></div>
+  <p><b>Chance.</b> Counting letters left over in the square plus text letters missing from it: in 8.9 million letters of German news the best stretch for each square, chosen freely, leaves 20–36 (S2: 24). The song, cut once, leaves S2 1 and the others 8–13 (<code>src/null_test.py</code>).</p>
+  <p><b>Independent transcriptions.</b> d3.ru (2015), Thomas Ernst (2017) and our own (2026) give the same single difference in S2.</p>
+  <p><b>Order and marks.</b> The squares follow the song's order (1 in 720 by chance). The apostrophes mark word ends: in S4 the marked letters equal the word-final consonants of its piece exactly (<code>src/significance.py</code>).</p>
+  <p><b>What remains.</b> S1 and S3 have fewer cells than their text (the writer dropped a few letters); the other squares differ by a few letters (in S4, checked on a scan, they are clearly written) (copying slips, or the wording of the copy the writer used). The dotted groups' meaning is open (<code>docs/open_questions.md</code>).</p>`;
+}
+function storySVG(k,mode){
+  const sq=N.squares[k], R=Math.ceil(sq.length/W), centre=Math.floor(R/2)*W+6;
+  let h=`<svg viewBox="-2 -2 ${W*CS+4} ${R*CS+4}" role="img" aria-label="Square S${k+1}">`;
+  sq.forEach((c,i)=>{const x=(i%W)*CS, y=Math.floor(i/W)*CS, cls=["cell"];
+    if(mode==="rows"){ if(i%W===W-1) cls.push("rowend"); if(c.e&&i%W===W-1&&i<sq.length-1) cls.push("brk") }
+    if(mode==="dots"){ if(c.d) cls.push("dg"); if(i===centre&&R===13) cls.push("ctr") }
+    h+=`<g class="${cls.join(" ")}"><rect x="${x}" y="${y}" width="${CS}" height="${CS}"/><text class="gl" x="${x+CS/2}" y="${y+CS/2+1}" style="font-size:22px;opacity:.55">${c.g}</text></g>`});
+  return h+`</svg>`;
+}
+function six(mode,cap){return `<div class="six">${N.squares.map((_,k)=>`<figure>${storySVG(k,mode)}<figcaption>${cap(k)}</figcaption></figure>`).join("")}</div>`}
+function step(n,kick,title,txt,fig){return `<article class="sheet step"><div class="txt"><span class="kick">Step ${n} · ${kick}</span><h3>${title}</h3>${txt}</div><div class="fig">${fig}</div></article>`}
+function renderStory(){
+  const T=N.story, el=$("#v-story");
+  if(!T){el.innerHTML=`<div class="sheet"><p class="note">Run <code>python src/structure.py</code>, then <code>python src/build_dashboard.py</code>, to fill this view.</p></div>`;return}
+  const rows=T.rows, al=T.alike, mix=T.mix, hop=T.hops, A2=analyse(1);
+  let h=`<div class="sheet stack"><h2>How it was found</h2>
+  <p class="lead">Nobody guessed "a GDR song". The note itself showed what kind of text it was: a known text with a repeated part, laid out in squares and jumbled by hand. That ruled out finding a key and pointed to a song. The charts in steps 1–5 are computed from the transcript by <code>src/structure.py</code> (results in <code>results/structure.txt</code>); only step 5 uses the song. Steps 6–7 summarise our working notes.</p>
+  ${N.photos&&N.photos.length?`<div class="photos">${N.photos.map((p,i)=>`<figure><img src="${p}" alt="Page ${i+1} of the note (2015 photograph)" loading="lazy"><figcaption>Page ${i+1}, as photographed in 2015 (from Klaus Schmeh's blog).</figcaption></figure>`).join("")}</div>`:`<p class="note">Run <code>python src/fetch_photos.py</code> to show the two public photographs of the note here.</p>`}</div>`;
+  h+=step(1,"layout","Six sections, each a 13 × 13 square",
+   `<p>The note falls into six sections, each ending on an underlined letter. They hold ${rows.per_square.map(r=>r.cells).join(", ")} letters: four are whole rows of 13, and three are exactly 13 × 13 = 169.</p>
+    <p>The spaces between the "words" are invented. But laid out 13 to a row, the word breaks land on the end of a row <b>${rows.total}</b> times, against <b>${rows.expected}</b> by chance (p ≤ ${rows.p.toExponential(0)}).</p>
+    <p class="then">So each section was written into a 13 × 13 square, then copied out row by row.</p>`,
+   six("rows",k=>`S${k+1}: ${rows.per_square[k].on_row_end} breaks on a row end (chance ${rows.per_square[k].expected})`)+`<div class="legend"><span><i class="sw" style="background:var(--inkSoft)"></i>last column (row end)</span><span><i class="sw" style="background:var(--marginSoft);border-color:var(--margin)"></i>a word break right at the row end</span></div>`);
+  h+=step(2,"layout","Dotted groups in reserved cells around the centre",
+   `<p>Nine groups of dotted letters (<i>r.s.f.d.</i>, <i>c.f.</i>, <i>r.l.b.</i> …) sit in deliberate places: on the middle row, just below the centre, and in S2 as two groups that are exact mirror images through the centre.</p>
+    <p class="then">The squares were planned cell by cell, not scribbled. The groups' meaning is still open (most likely numbers in a ten-letter code).</p>`,
+   six("dots",k=>`S${k+1}: ${T.groups.filter(g=>g.square===k+1).map(g=>g.word).join(" ")}`)+`<div class="legend"><span><i class="sw" style="background:var(--amberSoft);border-color:var(--amber)"></i>dotted group</span><span><i class="sw" style="border:2px solid var(--fg)"></i>centre of a full square</span></div>`);
+  const lets=Object.keys(al.counts), mx=Math.max(...lets.flatMap(c=>al.counts[c]));
+  h+=step(3,"content","Squares 2–5 repeat something: a refrain",
+   `<p>Squares 2–5 are more alike in their letters than chance allows: a homogeneity score of <b>${al.chi2}</b>, against ${al.split_mean} ± ${al.split_sd} for random splits of the same letters (p ${al.p_split.toFixed(3)})${al.german_mean?` and ${al.german_mean} ± ${al.german_sd} for consecutive passages of German news (p ${al.p_german.toFixed(3)})`:""}. Simulations put the shared part at about 60 letters per square. Square 1 is different: it has fewer <i>w</i>, <i>g</i>, <i>n</i> and more <i>f</i>, <i>u</i>, <i>c</i>.</p>
+    <p class="then">A part repeated in each section after a different opening is the shape of stanzas with a refrain: a song.</p>`,
+   `<div class="tblWrap"><table class="bars"><tr><th>letter</th>${N.squares.map((_,k)=>`<th>S${k+1}</th>`).join("")}</tr>${lets.map(c=>`<tr><td class="lt">${c}</td>${al.counts[c].map((v,k)=>`<td><span class="cnt"><i style="width:${(v/mx*40).toFixed(0)}px;background:${k===0?"var(--margin)":k>=1&&k<=4?"var(--ink)":"var(--muted)"}"></i>${v}</span></td>`).join("")}</tr>`).join("")}</table></div><p class="note">Letter counts per square (S1 red, S2–S5 blue). <i>w</i>, <i>u</i>, <i>g</i> are almost constant across S2–S5; S1 stands apart.</p>`);
+  if(mix){const sel=mix.rows.filter(d=>Math.abs(d.z)>=1.5), zmax=Math.max(...sel.map(d=>Math.abs(d.z)));
+  h+=step(4,"content",'A "we" voice, and <i>eimat</i>',
+   `<p>Against ordinary German the note has far too many <i>f</i>, <i>w</i> and <i>n</i> and too few <i>b</i>, <i>a</i>, <i>g</i>. Ranking real German sentences by how well they explain this mix put <i>wir</i>, <i>wenn</i> and <i>werden</i> on top and <i>ich</i>, <i>auch</i>, <i>nicht</i> at the bottom: a collective "we will …, if …" voice, as in a pledge or an anthem. The shared letters of S2–S5 fit words like <i>Freundschaft</i>, <i>Frieden</i> and <i>Heimat</i>, and below the last square stands <i>eimat</i>: the end of <i>Heimat</i>.</p>
+    <p class="then">A song of the youth or Pioneer kind, in German.</p>`,
+   `<div class="tblWrap"><table class="bars"><tr><th>letter</th><th>note</th><th>German</th><th>more ← → fewer than German</th></tr>${sel.map(d=>`<tr><td class="lt">${d.letter}</td><td>${d.note}</td><td>${Math.round(d.german)}</td><td class="b"><div class="barbox"><span class="axis"></span><i style="${d.z>0?`left:50%`:`right:50%`};width:${(Math.abs(d.z)/zmax*50).toFixed(1)}%;background:${d.z>0?"var(--ink)":"var(--margin)"}"></i></div></td></tr>`).join("")}</table></div><p class="note">All ${mix.letters} letters of the note against 4,000 random stretches of German news of the same length; letters at least 1.5 standard deviations off shown.</p>`)}
+  if(hop){const lab={"-1":"row above","0":"same row","1":"next row","2":"two rows down"};
+  h+=step(5,"method","The letters were placed by hand, hopping",
+   `<p>Neighbouring letters in the copy are unrelated, so no simple reading order exists. Before the text was known, only a weak trace showed: letters 2–3 cells apart, along the row or into the next row, were slightly linked.</p>
+    <p>With the song known it can be checked directly. The map shows where the next letter of the song sits relative to the previous one, compared with the same square shuffled: <b>to the right along the same row (2–4 cells), or down into the next row</b>; almost never back into the row above. The writer moved right and down through the square. Per square z ${hop.per_square.map(z=>(z>0?"+":"")+z).join(", ")}; combined <b>+${hop.combined}</b>.</p>
+    <p class="then">The writer filled each square by hopping freely. There was no key to find: the note could only be read by recognising its text.</p>`,
+   `<div class="tblWrap"><table class="heat"><tr><th></th>${hop.cols.map(c=>`<th>${c>0?"+":""}${c}</th>`).join("")}</tr>${hop.grid.map((r,i)=>`<tr><th>${lab[hop.rows[i]]}</th>${r.map(z=>z===null?`<td class="me">last</td>`:`<td style="background:color-mix(in srgb, ${z>0?"var(--ok)":"var(--margin)"} ${Math.min(Math.abs(z)/3.5,1)*60}%, var(--sheet))">${z>0?"+":""}${z.toFixed(1)}</td>`).join("")}</tr>`).join("")}</table></div><p class="note">Columns: cells to the left (−) or right (+) of the previous letter. Numbers are z-scores over the six squares (green = more often than chance). Repeated letters blur the picture, so the exact path cannot be recovered.</p>`)}
+  h+=step(6,"what failed","No key, rule or decoder could read it",
+   `<p>Before accepting "no key", every keyed or rule-based way of filling a square was tried. Each solver was first shown to recover German text planted the same way, then run on the note against shuffled copies of it. All came out at chance level.</p>
+    <p>Decoders following the hop habit did pick up the structure (real squares beat shuffled ones), but could not read text: each square allows about 10<sup>66</sup> hand-chosen paths.</p>`,
+   `<div class="tblWrap"><table class="fails"><tr><th>method</th><th>scale</th><th>note</th></tr>
+    <tr><td>Turning grilles 13 × 13 (quarter and half turn; one card or one per square; centre written on every turn)</td><td>all cards and orders</td><td>chance</td></tr>
+    <tr><td>Every fixed-step fill (magic squares, diagonals, knight steps, skews)</td><td>4.4 million procedures</td><td>chance</td></tr>
+    <tr><td>Keyword columns, single and double; Nihilist square; VIC-style disrupted columns</td><td>widths 2–25</td><td>chance</td></tr>
+    <tr><td>Counting-out and step keys (incl. dates, HEIMAT)</td><td>31,682 keys</td><td>chance</td></tr>
+    <tr><td>Routes steered by the letters themselves</td><td>19,456 rules</td><td>chance</td></tr>
+    <tr><td>Substitution or a private alphabet on top (German and Russian)</td><td>many alphabets</td><td>nothing readable</td></tr>
+    <tr><td>Language-model decoders along the hop habit</td><td>beams up to 1 million</td><td>structure, no text</td></tr></table></div>`);
+  h+=step(7,"the search","Search by letter counts, and the hit",
+   `<p>Jumbling inside a square changes the order of its letters, not their counts. So for each square, every stretch of a candidate text with the same length was compared by counts. The method was calibrated on planted sources first.</p>
+    <p>The collections below gave nothing, until GDR youth songs, the genre the clues pointed at. The <b>Einheitslied</b> (<i>Freundschaftskantate der Jugend</i>) matched S2 to <b>${A2.nl+A2.nm}</b> letter. The best stretch in 8.9 million letters of German news leaves 24.</p>
+    <p class="then">Then everything above fell into place: the refrain repeats in S2–S5, S1 is the opening stanza, the odd letter mix is the song's own, the apostrophes mark word ends, and <i>eimat</i> is the end of <i>Heimat</i>.</p>`,
+   `<div class="tblWrap"><table class="fails"><tr><th>collection</th><th>size</th><th>result</th></tr>
+    <tr><td>German Bibles, German Wikisource (full dump), 475 books</td><td>≈ 590 million letters</td><td>no match</td></tr>
+    <tr><td><i>Freundschaft</i>, Soviet-German newspaper</td><td>108 issues</td><td>no match</td></tr>
+    <tr><td>German folk songs</td><td>11,178 songs</td><td>no match</td></tr>
+    <tr><td>Russian Wikisource incl. revolutionary and Soviet songs</td><td>≈ 260 million windows</td><td>no match</td></tr>
+    <tr><td>Pioneer, school and GDR/Soviet-era texts</td><td>≈ 120 texts</td><td>no match</td></tr>
+    <tr><td><b>GDR song archive</b> (lieder-aus-der-ddr.de)</td><td>1,680 songs</td><td><b>Einheitslied: S2 ${A2.nl+A2.nm} letter off</b></td></tr></table></div>`);
+  h+=`<article class="sheet stack"><span class="kick">Step 8 · honesty</span><h3 style="font:700 1.65rem/1.05 var(--f-hand);color:var(--ink);margin:0">What we got wrong on the way</h3>
+   <ul class="wrong">
+    <li><b>"Spelling habits"</b> (b, p, v written as f; sch as w), invented to explain the odd letter mix. It was simply the song's letters.</li>
+    <li><b>A private alphabet over Russian (or Hungarian)</b>, suggested by letter statistics. The letters were plain German all along.</li>
+    <li><b>Square 6 copied upside down</b>, with hyphens as row markers. This rested on two misread letters on the faint second page.</li>
+    <li><b>Words "read" by the decoders</b> (<i>herunterfahren</i>, <i>Breshnew</i> …). These were the language models' own inventions; shuffled squares gave equally fluent words.</li>
+    <li><b>The apostrophes:</b> our first idea was word ends; for days we argued they were something else. The first idea was right.</li>
+    <li><b>The search order:</b> the refrain and the "we" voice were visible days before GDR songs were searched. A complete song collection of the right genre should have come first.</li>
+   </ul></article>`;
+  el.innerHTML=h;
+}
+function render(){
+  document.querySelectorAll("#views button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.v===VIEW));
+  ["solution","story","note","proof"].forEach(v=>$("#v-"+v).hidden=v!==VIEW);
+  $("#sqTabs").hidden=VIEW!=="solution";
+  $("#sqTabs").innerHTML=N.squares.map((_,k)=>{const A=analyse(k); return `<button data-k="${k}" aria-pressed="${k===S}">S${k+1}<span class="n">${A.nl+A.nm<=1?"exact":A.nl+A.nm+" off"}</span></button>`}).join("");
+  if(VIEW==="solution"){renderMinis(); renderSolution()} else if(VIEW==="story") renderStory(); else if(VIEW==="note") renderNote(); else renderProof();
+}
+document.addEventListener("click",e=>{
+  const v=e.target.closest("#views button"); if(v){VIEW=v.dataset.v; render(); return}
+  const t=e.target.closest("#sqTabs button, .mini"); if(t){S=+t.dataset.k; HL=null; VIEW="solution"; render(); return}
+  const w=e.target.closest(".tw[data-k]"); if(w){S=+w.dataset.k; HL={k:S,cells:w.dataset.cells.split(",").filter(Boolean).map(Number)}; VIEW="solution"; render(); window.scrollTo({top:0,behavior:"smooth"})}
+});
+render();
+})();
+</script>
+</body>
+</html>

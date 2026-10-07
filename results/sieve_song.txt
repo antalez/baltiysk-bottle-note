@@ -1,0 +1,6 @@
+S1: 7 off: song.txt "freundschaftallenvolkernfreundschaftruft…"
+S2: 1 off: song.txt "undschaftwerdenwirerringenwennwirfestzus…"
+S3: 5 off: song.txt "serdeutschlandganzgehorenfreundschaftfre…"
+S4: 6 off: song.txt "inheitwollenallegutenmenschenfurdasdeuts…"
+S5: 4 off: song.txt "lafunsrerkindersollunskeinebombezerstore…"
+S6: 7 off: song.txt "sammenstehnfriedenallenvolkernfriedenruf…"

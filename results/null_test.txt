@@ -1,0 +1,9 @@
+corpus: 8,877,998 letters of German news
+
+square  best window (letters unaccounted for)   share within 20   within 30   median
+  S1          36                              0.0e+00       0.0e+00     78
+  S2          24                              0.0e+00       2.8e-05     66
+  S3          20                              2.3e-07       1.7e-04     62
+  S4          26                              0.0e+00       4.3e-06     72
+  S5          20                              3.4e-07       1.7e-04     64
+  S6          26                              0.0e+00       5.6e-06     76

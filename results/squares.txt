@@ -1,0 +1,6 @@
+S1: 166 cells (12.77 rows of 13)
+S2: 169 cells (13.00 rows of 13)
+S3: 162 cells (12.46 rows of 13)
+S4: 169 cells (13.00 rows of 13)
+S5: 169 cells (13.00 rows of 13)
+S6: 143 cells (11.00 rows of 13)

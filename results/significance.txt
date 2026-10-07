@@ -1,0 +1,9 @@
+best-stretch starts: [0, 144, 333, 487, 657, 807]
+each square's best stretch, found independently, falls in song order: True   (chance: 1/720)
+
+S1: marks vs word ends of its own stretch: distance  6;  other stretches of the song as close or closer: 0 of 960  (p ≈ 0.001)
+S2: marks vs word ends of its own stretch: distance  6;  other stretches of the song as close or closer: 12 of 859  (p ≈ 0.014)
+S3: marks vs word ends of its own stretch: distance  4;  other stretches of the song as close or closer: 0 of 855  (p ≈ 0.001)
+S4: marks vs word ends of its own stretch: distance  1;  other stretches of the song as close or closer: 0 of 870  (p ≈ 0.001)
+S5: marks vs word ends of its own stretch: distance  5;  other stretches of the song as close or closer: 57 of 858  (p ≈ 0.066)
+S6: marks vs word ends of its own stretch: distance  9;  other stretches of the song as close or closer: 262 of 902  (p ≈ 0.290)
