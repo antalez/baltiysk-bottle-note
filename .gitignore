@@ -2,4 +2,4 @@ data/
 __pycache__/
 *.pyc
 .DS_Store
-dashboard/data.js
+dashboard/data.local.js

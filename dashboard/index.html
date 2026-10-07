@@ -94,6 +94,9 @@ td.plus{color:var(--amber);font-weight:600} td.minus{color:var(--margin);font-we
 .endmark{font:11px var(--f-mono);color:var(--margin);align-self:center}
 .prose{max-width:78ch;display:grid;gap:10px}
 .prose p{margin:0}
+a{color:var(--ink);text-decoration-color:var(--margin);text-underline-offset:2px}
+.links{display:flex;flex-wrap:wrap;gap:4px 16px;margin:8px 0 0;font-size:13px}
+.links a{font-weight:500}
 .prose code{font:12.5px var(--f-mono);background:var(--paper);padding:1px 5px;border-radius:4px}
 .story{display:grid;gap:16px;min-width:0}
 .wrap>*,.story>*{min-width:0}
@@ -134,6 +137,7 @@ ul.wrong{margin:0;padding-left:18px;display:grid;gap:6px;max-width:78ch}
 <div class="wrap">
 <header>
   <h1>Baltiysk Bottle Note</h1>
+  <p class="links"><a href="https://github.com/antalez/baltiysk-bottle-note" target="_blank" rel="noopener">GitHub repository</a><a href="https://scienceblogs.de/klausis-krypto-kolumne/2017/10/17/the-top-50-unsolved-encrypted-messages-19-the-kalinigrad-bottle-post/" target="_blank" rel="noopener">Schmeh's Top 50, No. 19</a><a href="https://web.archive.org/web/20150907061615/http://strana39.ru/news/o-chem-govoryat/85709/v-baltiyske-obnaruzhili-cheburashku-s-poslaniem-.html" target="_blank" rel="noopener">The 2015 report (Strana Kaliningrad)</a><a href="https://lieder-aus-der-ddr.de/einheitslied/" target="_blank" rel="noopener">The song</a></p>
   <p class="sub">The note found in a bottle in Baltiysk in 2015 is the GDR song <b>"Einheitslied"</b> (<i>Freundschaftskantate der Jugend</i>; words Herbert Keller, music André Asriel), cut into six consecutive pieces. Each piece was written into a 13 × 13 square with its letters jumbled. Here every square is matched against its piece of the song: the letters the text uses are crossed out, and what remains is shown.</p>
 </header>
 <div class="bar">
@@ -184,19 +188,20 @@ ul.wrong{margin:0;padding-left:18px;display:grid;gap:6px;max-width:78ch}
 </section>
 </div>
 
+<script src="data.local.js"></script>
 <script src="data.js"></script>
 <script>
 (function(){
-if(!window.NOTE){document.body.innerHTML='<div class="wrap"><h1>Baltiysk Bottle Note</h1><p class="sub">dashboard/data.js is missing. Run <code>python src/fetch_song.py</code> and <code>python src/build_dashboard.py</code>, then reload.</p></div>';return}
+if(!window.NOTE){document.body.innerHTML='<div class="wrap"><h1>Baltiysk Bottle Note</h1><p class="sub">dashboard/data.js is missing. Run <code>python src/build_dashboard.py</code>, then reload.</p></div>';return}
 const N=window.NOTE, W=13, CS=44, AB="abcdefghijklmnopqrstuvwxyz", $=s=>document.querySelector(s);
 let S=1, VIEW=["story","note","proof"].includes(location.hash.slice(1))?location.hash.slice(1):"solution", HL=null;
 const count=s=>{const c={}; for(const ch of s) c[ch]=(c[ch]||0)+1; return c};
 function analyse(k){
-  const sq=N.squares[k], piece=N.text.slice(N.cuts[k],N.cuts[k+1]);
-  const H=count(sq.map(c=>c.l)), T=count(piece), used={}, left={}, miss={};
+  const sq=N.squares[k], piece=N.text?N.text.slice(N.cuts[k],N.cuts[k+1]):null;
+  const H=count(sq.map(c=>c.l)), T=piece?count(piece):{...N.pieces[k].T}, used={}, left={}, miss={};
   AB.split("").forEach(ch=>{const h=H[ch]||0,t=T[ch]||0; used[ch]=Math.min(h,t); left[ch]=h-used[ch]; miss[ch]=t-used[ch]});
   const nl=Object.values(left).reduce((a,b)=>a+b,0), nm=Object.values(miss).reduce((a,b)=>a+b,0);
-  return {sq,piece,H,T,used,left,miss,nl,nm,usedN:sq.length-nl};
+  return {sq,piece,H,T,used,left,miss,nl,nm,usedN:sq.length-nl,plen:N.cuts[k+1]-N.cuts[k]};
 }
 function boardSVG(k,mini){
   const A=analyse(k), sq=A.sq, R=Math.ceil(sq.length/W), centre=Math.floor(R/2)*W+6;
@@ -220,13 +225,16 @@ function renderMinis(){
 function chips(obj,cls){const s=[]; Object.keys(obj).sort().forEach(ch=>{for(let i=0;i<obj[ch];i++) s.push(`<span class="chip ${cls}">${ch}</span>`)}); return s.join("")||`<span class="note">none</span>`}
 function renderSolution(){
   const k=S, A=analyse(k);
-  $("#sqTitle").textContent=`Square S${k+1} · ${A.sq.length} cells · text letters ${N.cuts[k]}–${N.cuts[k+1]}`;
+  const TL=N.title.length, ra=N.cuts[k]-TL, rb=N.cuts[k+1]-TL;
+  $("#sqTitle").textContent=`Square S${k+1} · ${A.sq.length} cells · song letters ${k===0?"title + ":""}${Math.max(ra,0)}–${rb}`;
   $("#board").outerHTML=boardSVG(k,false).replace('<svg class="board"','<svg class="board" id="board"');
-  $("#status").innerHTML=`<span class="big ${A.nl+A.nm<=1?"ok":""}">${A.usedN} of ${A.sq.length} cells used</span><span class="note">${A.nl} cell${A.nl===1?"":"s"} left over · ${A.nm} text letter${A.nm===1?"":"s"} missing · piece of ${A.piece.length} letters</span>`;
+  $("#status").innerHTML=`<span class="big ${A.nl+A.nm<=1?"ok":""}">${A.usedN} of ${A.sq.length} cells used</span><span class="note">${A.nl} cell${A.nl===1?"":"s"} left over · ${A.nm} text letter${A.nm===1?"":"s"} missing · piece of ${A.plen} letters</span>`;
   $("#leftChips").innerHTML=chips(A.left,"left"); $("#missChips").innerHTML=chips(A.miss,"miss");
   // the piece with context, in real words
   const a=N.cuts[k], b=N.cuts[k+1]; let h="";
-  N.words.forEach(w=>{ if(w.b<a-40||w.a>b+40) return;
+  if(!N.words){const P=N.pieces[k];
+    h=`<span class="cut">⟦</span>${P.head} <span class="ctx">… ${b-a} letters …</span> ${P.tail}<span class="cut">⟧</span><br><span class="note">The song's lyrics are not redistributed here: read the full text at <a href="https://lieder-aus-der-ddr.de/einheitslied/" target="_blank" rel="noopener">lieder-aus-der-ddr.de</a>, or build the dashboard locally to see each piece in full.</span>`}
+  else N.words.forEach(w=>{ if(w.b<a-40||w.a>b+40) return;
     let s=""; for(let j=w.a;j<w.b;j++){const ch=w.w[j-w.a]||""; const inside=j>=a&&j<b, fin=j===w.b-1;
       if(j===a) s+=`<span class="cut">⟦</span>`; s+=`<span class="${inside?"":"ctx"} ${fin?"fin":""}">${ch}</span>`; if(j===b-1) s+=`<span class="cut">⟧</span>`}
     h+=`<span class="w">${s}</span> `});
@@ -234,7 +242,8 @@ function renderSolution(){
   const rows=AB.split("").filter(ch=>(A.H[ch]||0)+(A.T[ch]||0)>0).sort((x,y)=>((A.T[y]||0)+(A.H[y]||0))-((A.T[x]||0)+(A.H[x]||0)));
   $("#tbl").innerHTML=`<tr><th>letter</th>${rows.map(ch=>`<td class="lt">${ch}</td>`).join("")}</tr><tr><th>square</th>${rows.map(ch=>`<td>${A.H[ch]||0}</td>`).join("")}</tr><tr><th>text</th>${rows.map(ch=>`<td>${A.T[ch]||0}</td>`).join("")}</tr><tr><th>diff</th>${rows.map(ch=>{const d=(A.H[ch]||0)-(A.T[ch]||0); return `<td class="${d>0?"plus":d<0?"minus":""}">${d>0?"+":""}${d||""}</td>`}).join("")}</tr>`;
   const mk={}, fe={}; A.sq.forEach(c=>{if(c.m&&c.l!=="e") mk[c.l]=(mk[c.l]||0)+1});
-  N.words.forEach(w=>{const j=w.b-1; if(j>=a&&j<b){const ch=N.text[j]; if(ch!=="e") fe[ch]=(fe[ch]||0)+1}});
+  if(N.words) N.words.forEach(w=>{const j=w.b-1; if(j>=a&&j<b){const ch=N.text[j]; if(ch!=="e") fe[ch]=(fe[ch]||0)+1}});
+  else Object.entries(N.pieces[k].F).forEach(([ch,n])=>{if(ch!=="e") fe[ch]=n});
   const fmt=o=>Object.entries(o).sort((x,y)=>y[1]-x[1]).map(([c,n])=>`${c}${n}`).join(" ");
   $("#marksLine").innerHTML=`<b>Word-end marks.</b> Marked letters in the square: ${fmt(mk)} · word-final consonants in this piece: ${fmt(fe)}.`;
 }
@@ -248,7 +257,7 @@ function renderNote(){
   $("#page").innerHTML=h;
 }
 function renderProof(){
-  const rows=N.squares.map((_,k)=>{const A=analyse(k); return `<tr><td>S${k+1}</td><td>${A.sq.length}</td><td>${N.cuts[k]}–${N.cuts[k+1]}</td><td>${A.usedN}</td><td>${A.nl}</td><td>${A.nm}</td></tr>`}).join("");
+  const rows=N.squares.map((_,k)=>{const A=analyse(k), TL=N.title.length; return `<tr><td>S${k+1}</td><td>${A.sq.length}</td><td>${k===0?"title + ":""}${Math.max(N.cuts[k]-TL,0)}–${N.cuts[k+1]-TL}</td><td>${A.usedN}</td><td>${A.nl}</td><td>${A.nm}</td></tr>`}).join("");
   const A2=analyse(1), r2=AB.split("").filter(ch=>(A2.H[ch]||0)+(A2.T[ch]||0)>0).sort((x,y)=>(A2.T[y]||0)-(A2.T[x]||0));
   $("#proof").innerHTML=`
   <p><b>One cut, six pieces.</b> The title plus the song is cut once into six consecutive pieces, one per square, choosing the cut points that leave the fewest letters unmatched (no overlaps, no gaps).</p>
@@ -270,7 +279,7 @@ function storySVG(k,mode){
   return h+`</svg>`;
 }
 function six(mode,cap){return `<div class="six">${N.squares.map((_,k)=>`<figure>${storySVG(k,mode)}<figcaption>${cap(k)}</figcaption></figure>`).join("")}</div>`}
-function step(n,kick,title,txt,fig){return `<article class="sheet step"><div class="txt"><span class="kick">Step ${n} · ${kick}</span><h3>${title}</h3>${txt}</div><div class="fig">${fig}</div></article>`}
+function step(n,kick,title,txt,fig){return `<article class="sheet step" id="step-${n}"><div class="txt"><span class="kick">Step ${n} · ${kick}</span><h3>${title}</h3>${txt}</div><div class="fig">${fig}</div></article>`}
 function renderStory(){
   const T=N.story, el=$("#v-story");
   if(!T){el.innerHTML=`<div class="sheet"><p class="note">Run <code>python src/structure.py</code>, then <code>python src/build_dashboard.py</code>, to fill this view.</p></div>`;return}

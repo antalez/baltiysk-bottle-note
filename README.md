@@ -1,14 +1,56 @@
 # The Baltiysk bottle note, solved
 
+[![Status: solved](https://img.shields.io/badge/status-solved-2f7a4b)](#the-proof)
+[![Schmeh's Top 50: No. 19](https://img.shields.io/badge/Schmeh's%20Top%2050-No.%2019-1f3f94)](https://scienceblogs.de/klausis-krypto-kolumne/2017/10/17/the-top-50-unsolved-encrypted-messages-19-the-kalinigrad-bottle-post/)
+[![Dashboard](https://img.shields.io/badge/dashboard-live-c2453b)](https://antalez.github.io/baltiysk-bottle-note/)
+[![README: EN | RU](https://img.shields.io/badge/README-EN%20%7C%20RU-5d6678)](README.ru.md)
+[![Code: MIT](https://img.shields.io/badge/code-MIT-lightgrey)](LICENSE)
+
 *[Русская версия](README.ru.md) (AI-translated).*
 
-In 2015 workers digging a gas trench by Lenin Street 64–66 in Baltiysk (Kaliningrad region, Russia; formerly Pillau) found a bottle with two exercise-book sheets covered in letter groups that nobody could read: *"en'ifvn d't'öhn'fdê elhrikiracel etê deluwrs …"*. The note became No. 19 on Klaus Schmeh's list of the most important unsolved encrypted messages.
+<p align="center">
+  <img src="https://scienceblogs.de/klausis-krypto-kolumne/files/2016/09/Kaliningrad-Cryptogram1.png" width="300" alt="Page 1 of the Baltiysk bottle note, photographed in 2015">
+</p>
 
-**It is a song.** The note is the text of the GDR youth song **"Einheitslied"** from the *Freundschaftskantate der Jugend* (words: Herbert Keller, music: André Asriel). Its stanzas *Freundschaft! Allen Völkern Freundschaft …*, *Einheit! …* and the start of *Frieden! …* were cut into six consecutive pieces of about 169 letters. Each piece was written into a 13 × 13 square with its letters jumbled, and the squares were copied row by row with invented word breaks. Below the last square stands **"eimat"** followed by dots: most likely the end of *Heimat* (*"Singen soll die Heimat"*), which follows a few words after the last square's text.
+In 2015 workers digging a gas trench by Lenin Street 64–66 in Baltiysk (Kaliningrad region, Russia; formerly Pillau) found a bottle with two exercise-book sheets covered in letter groups that nobody could read: *"en'ifvn d't'öhn'fdê elhrikiracel etê deluwrs …"*. The find was [reported by *Strana Kaliningrad*](https://web.archive.org/web/20150907061615/http://strana39.ru/news/o-chem-govoryat/85709/v-baltiyske-obnaruzhili-cheburashku-s-poslaniem-.html) in July 2015, and the note became [No. 19 on Klaus Schmeh's list](https://scienceblogs.de/klausis-krypto-kolumne/2017/10/17/the-top-50-unsolved-encrypted-messages-19-the-kalinigrad-bottle-post/) of the most important unsolved encrypted messages.
+
+**It is a song.** The note is the text of the GDR youth song **["Einheitslied"](https://lieder-aus-der-ddr.de/einheitslied/)** from the *Freundschaftskantate der Jugend* (words: Herbert Keller, music: [André Asriel](https://de.wikipedia.org/wiki/Andr%C3%A9_Asriel)). Its stanzas *Freundschaft! Allen Völkern Freundschaft …*, *Einheit! …* and the start of *Frieden! …* were cut into six consecutive pieces of about 169 letters. Each piece was written into a 13 × 13 square with its letters jumbled, and the squares were copied row by row with invented word breaks. Below the last square stands **"eimat"** followed by dots: most likely the end of *Heimat* (*"Singen soll die Heimat"*), which follows a few words after the last square's text.
+
+<p align="center"><b><a href="https://antalez.github.io/baltiysk-bottle-note/">Open the interactive dashboard</a></b> · <a href="https://antalez.github.io/baltiysk-bottle-note/dashboard/#story">How it was found, step by step</a> · <a href="#the-proof">The proof</a></p>
+
+<p align="center"><img src="docs/img/squares.png" alt="The six squares with every letter used by the song crossed out; S2: 168 of 169 used"></p>
+<p align="center"><sub>The six squares of the note. Every cell whose letter is used by that square's piece of the song is crossed out; amber cells are left over. S2 uses 168 of its 169 cells.</sub></p>
+
+## Contents
+- [The story in one picture](#the-story-in-one-picture)
+- [The proof](#the-proof)
+- [Why this is not a coincidence](#why-this-is-not-a-coincidence)
+- [How it was found](#how-it-was-found)
+- [How the note was made](#how-the-note-was-made)
+- [What is still open](#what-is-still-open)
+- [Reproduce it yourself](#reproduce-it-yourself)
+- [Sources and links](#sources-and-links)
+- [Credits](#credits)
+
+## The story in one picture
+
+```mermaid
+flowchart LR
+  N["The note: 6 sections,<br/>random-looking letters"] --> Q["13 × 13 squares:<br/>word breaks fall on row ends"]
+  Q --> K["No key or rule works:<br/>letters placed by hand"]
+  K --> R["So the text must be<br/>recognised, not decrypted"]
+  N --> F["S2–S5 share about 60 letters,<br/>S1 does not: a refrain"]
+  N --> V["A 'wir werden … wenn …' voice;<br/>Freundschaft, Frieden, (H)eimat"]
+  F --> G["A German youth song"]
+  V --> G
+  R --> S["Letter-count search<br/>over song collections"]
+  G --> S
+  S --> E["Einheitslied:<br/>S2 matches 168 of 169 letters"]
+```
 
 ## The proof
 
-Jumbling letters inside a square changes their order, not their counts. Cutting the song **once** into six back-to-back pieces (no overlaps, no gaps; `src/partition.py`) and crossing out in each square the letters its piece uses:
+Jumbling letters inside a square changes their order, not their counts. Cutting the song **once** into six back-to-back pieces (no overlaps, no gaps; [`src/partition.py`](src/partition.py)) and crossing out in each square the letters its piece uses:
 
 | Square | Cells | Piece of the song (letters) | Left over in the square | Text letters missing |
 |---|---|---|---|---|
@@ -27,30 +69,59 @@ square  28  24  16  14  13   7   7   7   7   7   6   6   5   5   4   3   3   2  
 song    28  24  16  14  13   7   7   7   7   6   6   6   5   5   4   3   3   2   2   2   1
 ```
 
-What remains in the other squares: S1 and S3 have fewer cells than their text (166 and 162 instead of 169; the writer dropped some letters), and the other squares differ by a few letters. For S4 we checked on the 2015 scans: its extra *l* are clearly written *l*, so those differences are on the paper (copying slips, or the wording of the copy the writer used). The other squares have not been re-checked letter by letter.
+<p align="center"><img src="docs/img/s2.png" alt="Square S2 in the dashboard: 168 of 169 cells crossed out, one l left over"></p>
+
+What remains in the other squares: S1 and S3 have fewer cells than their text (166 and 162 instead of 169; the writer dropped some letters), and the other squares differ by a few letters. For S4 we checked on the 2015 scans: its extra *l* are clearly written *l*, so those differences are on the paper (copying slips, or the wording of the copy the writer used). The other squares have not been re-checked letter by letter. With the song's title *Einheitslied* counted in front of S1, as the dashboard does, S1 is 7 letters off instead of 13 ([`results/partition_with_title.txt`](results/partition_with_title.txt)).
 
 ## Why this is not a coincidence
 
 All numbers below use one measure: letters left over in the square plus letters of the text missing from it.
 
-- **Chance.** In 8.9 million letters of German news (Leipzig corpus), the best window for each square, chosen freely, leaves 20–36 letters unaccounted for (S2: 24). The song, cut once into consecutive pieces, leaves S2 1 and the others 8–13 (`src/null_test.py`, `results/null_test.txt`).
-- **Other transcriptions.** A transcription posted on d3.ru in July 2015 and Thomas Ernst's of 2017 give the same result for S2 as ours (all 168 letters, one extra *l*). Ours started from Ernst's and was re-verified symbol by symbol (`src/check_transcriptions.py`, `results/check_transcriptions.txt`).
-- **Order.** Each square's best-matching stretch, found independently, falls in the song's own order (chance 1 in 720; `src/significance.py`).
-- **The marks.** The apostrophes mark word ends. In S1, S3 and S4 no other stretch of the song matches a square's marked letters as well as its own piece (p ≈ 0.001 each); S2 p ≈ 0.01, S5 ≈ 0.07, S6 not significant (`results/significance.txt`).
-
-## How the note was made
-
-- **Pieces.** The song's letters (no spaces or punctuation; the writer kept *ö* and *ü*) cut into consecutive pieces of about 169 = 13 × 13. Whether S1 begins with the title *Einheitslied* is open: with the title in front the total fit improves slightly (`results/partition_with_title.txt`).
-- **Filling.** Each piece written into its square letter by letter, moving right and down: the next song letter sits 2–4 cells to the right in the same row, or in the next row down, more often than chance, and almost never back in the row above. This holds in every square and is clear in combination (`results/structure.txt`). The exact writing order cannot be recovered; the song repeats letters too much.
-- **Word ends marked.** An apostrophe marks the last letter of a word (*t′* ends *Freundschaft*, *Einheit*, *Welt*; *n′* ends *allen*, *wollen*, *singen* …); *ê* marks a word-final *e* (`results/marks.txt`).
-- **Copied** row by row onto the two sheets with invented word breaks; each square's last letter underlined.
-- **Dotted groups** (*r.s.f.d. c.f. f.t′.f.*, *r.l.b. s.n.c.*, …): letters of the song placed in reserved cells around each square's centre. Their meaning is open (see `docs/open_questions.md`).
+- **Chance.** In 8.9 million letters of German news ([Leipzig corpus](https://wortschatz.uni-leipzig.de/en/download/German)), the best window for each square, chosen freely, leaves 20–36 letters unaccounted for (S2: 24). The song, cut once into consecutive pieces, leaves S2 1 and the others 8–13 ([`src/null_test.py`](src/null_test.py), [`results/null_test.txt`](results/null_test.txt)).
+- **Other transcriptions.** A transcription [posted on d3.ru](https://simple_life.d3.ru/v-baltiiske-nashli-butylku-s-shifrovkoi-na-neizvestnom-iazyke-784251/) in July 2015 and [Thomas Ernst's of 2017](https://scienceblogs.de/klausis-krypto-kolumne/2017/10/17/the-top-50-unsolved-encrypted-messages-19-the-kalinigrad-bottle-post/) give the same result for S2 as ours (all 168 letters, one extra *l*). Ours started from Ernst's and was re-verified symbol by symbol ([`src/check_transcriptions.py`](src/check_transcriptions.py), [`results/check_transcriptions.txt`](results/check_transcriptions.txt)).
+- **Order.** Each square's best-matching stretch, found independently, falls in the song's own order (chance 1 in 720; [`src/significance.py`](src/significance.py)).
+- **The marks.** The apostrophes mark word ends. In S1, S3 and S4 no other stretch of the song matches a square's marked letters as well as its own piece (p ≈ 0.001 each); S2 p ≈ 0.01, S5 ≈ 0.07, S6 not significant ([`results/significance.txt`](results/significance.txt)).
 
 ## How it was found
 
-The note itself pointed the way. Its sections are 13 × 13 squares filled by hand: neighbouring letters are unrelated, and no key or rule puts them back in order (hundreds of grilles, routes and keyed transpositions failed; see `docs/method.md`). So the text could only be **recognised**, not decrypted. Sections 2–5 share about 60 letters each that section 1 lacks, which is the shape of stanzas with a refrain after an opening. The letters also favour a collective German "wir werden … wenn …" voice with words like *Freundschaft*, *Frieden* and *Heimat* (*eimat* below the last square). That pointed to a song of the Pioneer/youth kind. Letter counts survive any jumbling, so every square was compared, by counts, with every window of candidate texts. Bibles, German Wikisource, books, the Soviet-German newspaper *Freundschaft*, German folk songs and Russian songs gave no match. A collection of 1,762 songs and poems, most of them from the GDR song archive *lieder-aus-der-ddr.de*, contained the Einheitslied.
+Nobody guessed "a GDR song". The note itself showed what kind of text it was. The [dashboard's story tab](https://antalez.github.io/baltiysk-bottle-note/dashboard/#story) walks through it with charts; the numbers come from [`src/structure.py`](src/structure.py) ([`results/structure.txt`](results/structure.txt)).
 
-## Reproduce
+**1. Squares.** The six sections hold 166, 169, 162, 169, 169 and 143 letters, and the invented word breaks land on the ends of 13-letter rows 31 times against about 14 by chance. Each section was a 13 × 13 square, copied out row by row.
+
+<p align="center"><img src="docs/img/rows.png" width="560" alt="The six squares with word breaks at row ends highlighted"></p>
+
+**2. No key.** Hundreds of grilles, routes and keyed transpositions, each first shown to recover planted German text, read nothing. Neighbouring letters are unrelated: the letters were placed by hand. So the text could only be **recognised**, not decrypted ([`docs/method.md`](docs/method.md)).
+
+**3. A refrain.** Squares 2–5 are more alike in their letters than chance allows (p 0.004 against random splits, 0.03 against real German), sharing about 60 letters each, while square 1 stands apart. An opening followed by a repeated part is the shape of a song with a refrain.
+
+<p align="center"><img src="docs/img/refrain.png" alt="Letter counts per square: w, u, g almost constant across S2 to S5; S1 different"></p>
+
+**4. A voice.** The letters favour a collective German "wir werden … wenn …" ("we will … if …") voice with words like *Freundschaft*, *Frieden* and *Heimat*, and *eimat* stands under the last square. That pointed to a youth or Pioneer song.
+
+**5. The search.** Letter counts survive any jumbling, so every square was compared, by counts, with every window of candidate texts. Bibles, German Wikisource, 475 books, the Soviet-German newspaper *Freundschaft*, 11,178 German folk songs and Russian songs gave nothing. A collection of 1,762 songs and poems, most of them from the GDR song archive [lieder-aus-der-ddr.de](https://lieder-aus-der-ddr.de/), contained the Einheitslied.
+
+We got things wrong on the way (spelling-habit theories, a Russian "private alphabet", words "read" by decoders), and we searched GDR songs later than the clues deserved. The dashboard lists these too.
+
+## How the note was made
+
+- **Pieces.** The song's letters (no spaces or punctuation; the writer kept *ö* and *ü*) cut into consecutive pieces of about 169 = 13 × 13. Whether S1 begins with the title *Einheitslied* is open: with the title in front the total fit improves slightly.
+- **Filling.** Each piece written into its square letter by letter, moving right and down: the next song letter sits 2–4 cells to the right in the same row, or in the next row down, more often than chance, and almost never back in the row above. This holds in every square and is clear in combination. The exact writing order cannot be recovered; the song repeats letters too much.
+
+<p align="center"><img src="docs/img/hops.png" alt="Where the next letter of the song sits relative to the previous one: right along the row or down into the next row"></p>
+
+- **Word ends marked.** An apostrophe marks the last letter of a word (*t′* ends *Freundschaft*, *Einheit*, *Welt*; *n′* ends *allen*, *wollen*, *singen* …); *ê* marks a word-final *e* ([`results/marks.txt`](results/marks.txt)).
+- **Copied** row by row onto the two sheets with invented word breaks; each square's last letter underlined.
+- **Dotted groups** (*r.s.f.d. c.f. f.t′.f.*, *r.l.b. s.n.c.*, …): letters of the song placed in reserved cells around each square's centre.
+
+## What is still open
+
+- **The dotted groups.** 27 consonants from only ten letters (b c d f l n r s t z), placed around the squares' centres. In S2 the second group is the first shifted by one letter in that alphabet, which suggests numbers in a ten-letter code: perhaps a date, a class or a school number. One outside fact would fix the code.
+- **The remaining letter differences** in S1 and S3–S6: the writer's slips, or a printed version of the song that differs from the one online.
+- **The author.** No name is written. Someone who knew a GDR youth song well, and buried it in Baltiysk.
+
+Details: [`docs/open_questions.md`](docs/open_questions.md). If you know anything about this song in Baltiysk, a GDR songbook with it, or the bottle itself, please open an issue.
+
+## Reproduce it yourself
 
 ```bash
 pip install numpy
@@ -67,27 +138,32 @@ python sieve.py ../data/song.txt   # the letter-count search (or any folder of .
 python structure.py                # what the note itself shows: rows of 13, dotted groups, the refrain, the letter mix, the hops
 ```
 
-## Dashboard
-
-An interactive page shows every square with the letters used by its piece of the song crossed out, what is left over and what is missing. Its **How it was found** tab walks through the clues, with charts, that led from the note to a song.
+The [live dashboard](https://antalez.github.io/baltiysk-bottle-note/) shows short excerpts of the song only. To see each square's whole piece of the song, build it locally:
 
 ```bash
 python src/fetch_song.py && python src/fetch_photos.py   # lyrics and the two public photos, saved locally (not redistributed)
-cd src && python structure.py && python build_dashboard.py   # writes results/structure.json and dashboard/data.js
-open ../dashboard/index.html                                # or double-click it (index.html#story opens the story)
+cd src && python structure.py && python build_dashboard.py
+open ../dashboard/index.html                                # or double-click it
 ```
 
-## Files
+**Files:**
+- [`transcript/transcript_v3.4.txt`](transcript/transcript_v3.4.txt): the note, line by line; [`transcript/NOTATION.md`](transcript/NOTATION.md) explains the notation; [`transcript/earlier/`](transcript/earlier/) holds the 2015 forum transcription.
+- [`src/`](src/): the scripts above; [`results/`](results/): their output; [`dashboard/`](dashboard/): the interactive page.
+- [`docs/method.md`](docs/method.md): what was tried, what failed and why, and how the solution was confirmed.
+- [`docs/open_questions.md`](docs/open_questions.md): the dotted groups, the remaining differences, the author.
+- [`README.ru.md`](README.ru.md), [`docs/method.ru.md`](docs/method.ru.md), [`docs/open_questions.ru.md`](docs/open_questions.ru.md): Russian versions (AI-translated).
 
-- `transcript/transcript_v3.4.txt`: the note, line by line; `transcript/NOTATION.md` explains the notation; `transcript/earlier/` holds the 2015 forum transcription.
-- `src/`: the scripts above; `results/`: their output; `dashboard/`: the interactive page.
-- `docs/method.md`: what was tried, what failed and why, and how the solution was confirmed.
-- `docs/open_questions.md`: the dotted groups, the remaining differences, the author.
-- `README.ru.md`, `docs/method.ru.md`, `docs/open_questions.ru.md`: Russian versions (AI-translated).
+## Sources and links
+
+- **The find:** *Strana Kaliningrad*, No. 27, 1–7 July 2015 ([archived web article](https://web.archive.org/web/20150907061615/http://strana39.ru/news/o-chem-govoryat/85709/v-baltiyske-obnaruzhili-cheburashku-s-poslaniem-.html)).
+- **The case:** Klaus Schmeh, ["Kaliningrad's second mystery: who can break this encrypted bottle post?"](https://scienceblogs.de/klausis-krypto-kolumne/2016/09/12/kaliningrads-second-mystery-who-can-break-this-encrypted-bottle-post/) (2016, with the photographs) and ["The Top 50 unsolved encrypted messages: 19. The Kaliningrad bottle post"](https://scienceblogs.de/klausis-krypto-kolumne/2017/10/17/the-top-50-unsolved-encrypted-messages-19-the-kalinigrad-bottle-post/) (2017, with Thomas Ernst's transcription in the comments).
+- **The 2015 transcription:** [d3.ru thread](https://simple_life.d3.ru/v-baltiiske-nashli-butylku-s-shifrovkoi-na-neizvestnom-iazyke-784251/) (comments).
+- **The song:** ["Einheitslied (aus der Freundschaftskantate der Jugend)"](https://lieder-aus-der-ddr.de/einheitslied/) at lieder-aus-der-ddr.de; composer [André Asriel](https://de.wikipedia.org/wiki/Andr%C3%A9_Asriel).
+- **German reference text:** [Leipzig Corpora Collection](https://wortschatz.uni-leipzig.de/en/download/German), German news 2020.
 
 ## Credits
 
 Solved by Anton Zaytsev (October 2026), with AI assistance (Claude, Anthropic).
 Thanks to the 2015 transcriber on d3.ru and to Thomas Ernst (2017) for earlier transcriptions; to Klaus Schmeh for keeping the case alive; to *Strana Kaliningrad* for the original report; and to *lieder-aus-der-ddr.de* for preserving the song.
 
-The song lyrics are © their rights holders and are not included in this repository. Code: MIT licence. Text and tables: CC BY 4.0.
+The song lyrics are © their rights holders and are not included in this repository. Code: [MIT licence](LICENSE). Text and tables: CC BY 4.0.
