@@ -2,7 +2,7 @@
 
 [![Статус: решено](https://img.shields.io/badge/статус-решено-2f7a4b)](#доказательство)
 [![Список Шмеха: № 19](https://img.shields.io/badge/Top%2050%20Шмеха-№%2019-1f3f94)](https://scienceblogs.de/klausis-krypto-kolumne/2017/10/17/the-top-50-unsolved-encrypted-messages-19-the-kalinigrad-bottle-post/)
-[![Интерактивная страница](https://img.shields.io/badge/страница-онлайн-c2453b)](https://antalez.github.io/baltiysk-bottle-note/)
+[![Интерактивная страница](https://img.shields.io/badge/страница-онлайн-c2453b)](https://antalez.github.io/baltiysk-bottle-note/dashboard/?lang=ru)
 [![README: EN | RU](https://img.shields.io/badge/README-EN%20%7C%20RU-5d6678)](README.md)
 
 *Перевод с английского выполнен с помощью ИИ (Claude). При расхождениях верна [английская версия](README.md).*
@@ -15,7 +15,7 @@
 
 **Это песня.** В записке записан текст песни ГДР **[«Einheitslied»](https://lieder-aus-der-ddr.de/einheitslied/)** («Песня единства») из *Freundschaftskantate der Jugend* («Кантата дружбы молодёжи»; слова Херберта Келлера, музыка [Андре Асриэля](https://de.wikipedia.org/wiki/Andr%C3%A9_Asriel)). Её куплеты *Freundschaft! Allen Völkern Freundschaft …*, *Einheit! …* и начало куплета *Frieden! …* разрезаны на шесть идущих подряд кусков примерно по 169 букв. Каждый кусок вписан в квадрат 13 × 13, буквы внутри квадрата перемешаны, затем квадраты переписаны по строкам с придуманными пробелами между «словами». Под последним квадратом стоит **«eimat»** и точки. Скорее всего, это конец слова *Heimat* («Родина»; в песне *«Singen soll die Heimat»*), которое идёт в тексте через несколько слов после последнего квадрата.
 
-<p align="center"><b><a href="https://antalez.github.io/baltiysk-bottle-note/">Открыть интерактивную страницу</a></b> · <a href="https://antalez.github.io/baltiysk-bottle-note/dashboard/#story">Как нашли, по шагам</a> · <a href="#доказательство">Доказательство</a><br><sub>Интерактивная страница на английском.</sub></p>
+<p align="center"><b><a href="https://antalez.github.io/baltiysk-bottle-note/dashboard/?lang=ru">Открыть интерактивную страницу</a></b> · <a href="https://antalez.github.io/baltiysk-bottle-note/dashboard/?lang=ru#story">Как нашли, по шагам</a> · <a href="#доказательство">Доказательство</a><br><sub>Страница на русском и английском (переключатель EN | RU).</sub></p>
 
 <p align="center"><img src="docs/img/squares.png" alt="Шесть квадратов записки: вычеркнуты все буквы, которые использует песня; в S2 использовано 168 из 169"></p>
 <p align="center"><sub>Шесть квадратов записки. Вычеркнута каждая клетка, чью букву использует кусок песни этого квадрата; жёлтым отмечено лишнее. В S2 использовано 168 клеток из 169.</sub></p>
@@ -87,7 +87,7 @@ S2 по буквам: все 168 букв его куска есть в квад
 
 ## Как её нашли
 
-Никто не угадывал «песню ГДР». Сама записка показала, что это за текст. [Вкладка истории на интерактивной странице](https://antalez.github.io/baltiysk-bottle-note/dashboard/#story) проходит по шагам с графиками; числа считает [`src/structure.py`](src/structure.py) ([`results/structure.txt`](results/structure.txt)).
+Никто не угадывал «песню ГДР». Сама записка показала, что это за текст. [Вкладка истории на интерактивной странице](https://antalez.github.io/baltiysk-bottle-note/dashboard/?lang=ru#story) проходит по шагам с графиками; числа считает [`src/structure.py`](src/structure.py) ([`results/structure.txt`](results/structure.txt)).
 
 **1. Квадраты.** В шести разделах 166, 169, 162, 169, 169 и 143 буквы, а придуманные пробелы попадают на концы 13-буквенных строк 31 раз при примерно 14 случайных. Каждый раздел был квадратом 13 × 13, переписанным по строкам.
 
@@ -141,7 +141,7 @@ python sieve.py ../data/song.txt   # поиск по количеству бук
 python structure.py                # что видно в самой записке: строки по 13, группы с точками, припев, состав букв, ходы
 ```
 
-[Интерактивная страница онлайн](https://antalez.github.io/baltiysk-bottle-note/) показывает только короткие отрывки песни. Чтобы увидеть кусок песни каждого квадрата целиком, соберите её локально:
+[Интерактивная страница онлайн](https://antalez.github.io/baltiysk-bottle-note/dashboard/?lang=ru) показывает только короткие отрывки песни. Чтобы увидеть кусок песни каждого квадрата целиком, соберите её локально:
 
 ```bash
 python src/fetch_song.py && python src/fetch_photos.py   # текст песни и две опубликованные фотографии, сохраняются локально (не распространяются)

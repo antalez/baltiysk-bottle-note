@@ -131,21 +131,25 @@ a{color:var(--ink);text-decoration-color:var(--margin);text-underline-offset:2px
 .fails td,.fails th{text-align:left;vertical-align:top}
 .fails td{font:13px/1.4 var(--f-ui)}
 ul.wrong{margin:0;padding-left:18px;display:grid;gap:6px;max-width:78ch}
+.headrow{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;justify-content:space-between}
+.tabs.lang button{padding:4px 10px;font-weight:600}
+.ai{margin-top:6px}
 </style>
 </head>
 <body>
 <div class="wrap">
 <header>
-  <h1>Baltiysk Bottle Note</h1>
-  <p class="links"><a href="https://github.com/antalez/baltiysk-bottle-note" target="_blank" rel="noopener">GitHub repository</a><a href="https://scienceblogs.de/klausis-krypto-kolumne/2017/10/17/the-top-50-unsolved-encrypted-messages-19-the-kalinigrad-bottle-post/" target="_blank" rel="noopener">Schmeh's Top 50, No. 19</a><a href="https://web.archive.org/web/20150907061615/http://strana39.ru/news/o-chem-govoryat/85709/v-baltiyske-obnaruzhili-cheburashku-s-poslaniem-.html" target="_blank" rel="noopener">The 2015 report (Strana Kaliningrad)</a><a href="https://lieder-aus-der-ddr.de/einheitslied/" target="_blank" rel="noopener">The song</a></p>
-  <p class="sub">The note found in a bottle in Baltiysk in 2015 is the GDR song <b>"Einheitslied"</b> (<i>Freundschaftskantate der Jugend</i>; words Herbert Keller, music André Asriel), cut into six consecutive pieces. Each piece was written into a 13 × 13 square with its letters jumbled. Here every square is matched against its piece of the song: the letters the text uses are crossed out, and what remains is shown.</p>
+  <div class="headrow"><h1 data-t="h1"></h1><div class="tabs lang" id="langTabs" role="group" aria-label="Language"><button data-lang="en">EN</button><button data-lang="ru">RU</button></div></div>
+  <p class="links" data-t="links"></p>
+  <p class="sub" data-t="sub"></p>
+  <p class="note ai" data-t="aiNote"></p>
 </header>
 <div class="bar">
   <div class="tabs" id="views" role="group" aria-label="View">
-    <button data-v="solution" aria-pressed="true">Solution</button>
-    <button data-v="story" aria-pressed="false">How it was found</button>
-    <button data-v="note" aria-pressed="false">The note</button>
-    <button data-v="proof" aria-pressed="false">Proof</button>
+    <button data-v="solution" data-t="tabSolution" aria-pressed="true"></button>
+    <button data-v="story" data-t="tabStory" aria-pressed="false"></button>
+    <button data-v="note" data-t="tabNote" aria-pressed="false"></button>
+    <button data-v="proof" data-t="tabProof" aria-pressed="false"></button>
   </div>
   <div class="tabs" id="sqTabs" role="group" aria-label="Square"></div>
 </div>
@@ -155,19 +159,19 @@ ul.wrong{margin:0;padding-left:18px;display:grid;gap:6px;max-width:78ch}
   <div class="cols">
     <div class="sheet stack">
       <h2 id="sqTitle"></h2>
-      <svg class="board" id="board" role="img" aria-label="The square with used letters crossed out"></svg>
+      <svg class="board" id="board" role="img" aria-label="Square"></svg>
       <div class="legend">
-        <span><i class="sw" style="background:var(--okSoft);border-color:var(--ok)"></i>crossed out: used by the text</span>
-        <span><i class="sw" style="background:var(--amberSoft);border-color:var(--amber)"></i>left over (which of several identical letters is the spare one is arbitrary)</span>
-        <span><i class="sw" style="background:var(--dotSoft)"></i>dotted group (also text letters)</span>
-        <span><i class="sw" style="border:2px solid var(--margin)"></i>centre</span>
+        <span><i class="sw" style="background:var(--okSoft);border-color:var(--ok)"></i><span data-t="lgUsed"></span></span>
+        <span><i class="sw" style="background:var(--amberSoft);border-color:var(--amber)"></i><span data-t="lgLeft"></span></span>
+        <span><i class="sw" style="background:var(--dotSoft)"></i><span data-t="lgDot"></span></span>
+        <span><i class="sw" style="border:2px solid var(--margin)"></i><span data-t="lgCentre"></span></span>
       </div>
     </div>
     <div class="sheet stack">
       <div class="status" id="status"></div>
-      <div><div class="lbl">Left over in the square</div><div class="chips" id="leftChips"></div></div>
-      <div><div class="lbl">Text letters missing from the square</div><div class="chips" id="missChips"></div></div>
-      <div><div class="lbl" style="margin-bottom:4px">This square's piece of the song (word ends underlined; the marked letters on the note are the word ends)</div><div class="piece" id="piece"></div></div>
+      <div><div class="lbl" data-t="lblLeft"></div><div class="chips" id="leftChips"></div></div>
+      <div><div class="lbl" data-t="lblMiss"></div><div class="chips" id="missChips"></div></div>
+      <div><div class="lbl" style="margin-bottom:4px" data-t="lblPiece"></div><div class="piece" id="piece"></div></div>
       <div class="tblWrap"><table id="tbl"></table></div>
       <p class="note" id="marksLine"></p>
     </div>
@@ -177,13 +181,13 @@ ul.wrong{margin:0;padding-left:18px;display:grid;gap:6px;max-width:78ch}
 <section id="v-story" class="story" hidden></section>
 
 <section id="v-note" class="sheet stack" hidden>
-  <h2>The note as written</h2>
-  <p class="note">The 25 lines from the two sheets (transcript v3.4), coloured by square. Click a word to see it in its square. Dotted groups in amber; "eimat" and its dots lie below the last square.</p>
+  <h2 data-t="noteH"></h2>
+  <p class="note" data-t="noteP"></p>
   <div class="page" id="page"></div>
 </section>
 
 <section id="v-proof" class="sheet stack" hidden>
-  <h2>Why this is the text</h2>
+  <h2 data-t="proofH"></h2>
   <div class="prose" id="proof"></div>
 </section>
 </div>
@@ -192,8 +196,205 @@ ul.wrong{margin:0;padding-left:18px;display:grid;gap:6px;max-width:78ch}
 <script src="data.js"></script>
 <script>
 (function(){
-if(!window.NOTE){document.body.innerHTML='<div class="wrap"><h1>Baltiysk Bottle Note</h1><p class="sub">dashboard/data.js is missing. Run <code>python src/build_dashboard.py</code>, then reload.</p></div>';return}
-const N=window.NOTE, W=13, CS=44, AB="abcdefghijklmnopqrstuvwxyz", $=s=>document.querySelector(s);
+const $=s=>document.querySelector(s);
+// ---------- language ----------
+function pickLang(){
+  const q=new URLSearchParams(location.search).get("lang"); if(q==="ru"||q==="en") return q;
+  try{const s=localStorage.getItem("bbn-lang"); if(s==="ru"||s==="en") return s}catch(e){}
+  return (navigator.language||"").toLowerCase().startsWith("ru")?"ru":"en";
+}
+let LANG=pickLang();
+const plRu=(n,one,few,many)=>{const a=Math.abs(n)%100,b=a%10; return a>10&&a<20?many:b===1?one:b>=2&&b<=4?few:many};
+const num=x=>LANG==="ru"?String(x).replace(".",","):String(x);
+const A_=(u,txt)=>`<a href="${u}" target="_blank" rel="noopener">${txt}</a>`;
+const U={repo:"https://github.com/antalez/baltiysk-bottle-note",schmeh:"https://scienceblogs.de/klausis-krypto-kolumne/2017/10/17/the-top-50-unsolved-encrypted-messages-19-the-kalinigrad-bottle-post/",
+  strana:"https://web.archive.org/web/20150907061615/http://strana39.ru/news/o-chem-govoryat/85709/v-baltiyske-obnaruzhili-cheburashku-s-poslaniem-.html",song:"https://lieder-aus-der-ddr.de/einheitslied/",ru:"https://github.com/antalez/baltiysk-bottle-note/blob/main/README.ru.md"};
+const I={
+en:{
+  h1:"Baltiysk Bottle Note",
+  links:()=>A_(U.repo,"GitHub repository")+A_(U.schmeh,"Schmeh's Top 50, No. 19")+A_(U.strana,"The 2015 report (Strana Kaliningrad)")+A_(U.song,"The song"),
+  sub:`The note found in a bottle in Baltiysk in 2015 is the GDR song <b>"Einheitslied"</b> (<i>Freundschaftskantate der Jugend</i>; words Herbert Keller, music André Asriel), cut into six consecutive pieces. Each piece was written into a 13 × 13 square with its letters jumbled. Here every square is matched against its piece of the song: the letters the text uses are crossed out, and what remains is shown.`,
+  aiNote:"",
+  tabSolution:"Solution",tabStory:"How it was found",tabNote:"The note",tabProof:"Proof",
+  lgUsed:"crossed out: used by the text",lgLeft:"left over (which of several identical letters is the spare one is arbitrary)",lgDot:"dotted group (also text letters)",lgCentre:"centre",
+  lblLeft:"Left over in the square",lblMiss:"Text letters missing from the square",lblPiece:"This square's piece of the song (word ends underlined; the marked letters on the note match the word ends)",
+  noteH:"The note as written",noteP:`The 25 lines from the two sheets (transcript v3.4), coloured by square. Click a word to see it in its square. Dotted groups in amber; "eimat" and its dots lie below the last square.`,
+  proofH:"Why this is the text",
+  miniCap:(k,A)=>`<b>S${k+1}</b> · ${A.usedN}/${A.sq.length} used${A.nl?` · ${A.nl} left`:""}${A.nm?` · ${A.nm} missing`:""}`,
+  none:"none",exact:"exact",off:n=>`${n} off`,
+  sqTitle:(k,n,a,b)=>`Square S${k+1} · ${n} cells · song letters ${k===0?"title + ":""}${a}–${b}`,
+  statusBig:(u,n)=>`${u} of ${n} cells used`,
+  statusSmall:(nl,nm,pl)=>`${nl} cell${nl===1?"":"s"} left over · ${nm} text letter${nm===1?"":"s"} missing · piece of ${pl} letters`,
+  excerpt:n=>`… ${n} letters …`,
+  noLyrics:`The song's lyrics are not redistributed here: read the full text at ${A_(U.song,"lieder-aus-der-ddr.de")}, or build the dashboard locally to see each piece in full.`,
+  thLetter:"letter",thSquare:"square",thText:"text",thDiff:"diff",
+  marks:(mk,fe)=>`<b>Word-end marks.</b> Marked letters in the square: ${mk} · word-final consonants in this piece: ${fe}.`,
+  title_:"title + ",
+  proof:(rows,r2,A2)=>`
+  <p><b>One cut, six pieces.</b> The title plus the song is cut once into six consecutive pieces, one per square, choosing the cut points that leave the fewest letters unmatched (no overlaps, no gaps).</p>
+  <div class="tblWrap"><table><tr><th>square</th><th>cells</th><th>song letters</th><th>cells used</th><th>left over</th><th>text missing</th></tr>${rows}</table></div>
+  <p><b>S2, letter by letter.</b> 168 of its 169 cells are the letters of its piece of the song; one <i>l</i> is left over.</p>
+  ${r2}
+  <p><b>Chance.</b> Counting letters left over in the square plus text letters missing from it: in 8.9 million letters of German news the best stretch for each square, chosen freely, leaves 20–36 (S2: 24); given the same ±25-letter freedom of length as the song pieces, still 19–33 (S2: 21). The song, cut once into consecutive pieces, leaves S2 1 and the others 8–13. A benchmark, not an exact false-positive probability (<code>src/null_test.py</code>).</p>
+  <p><b>Independent transcriptions.</b> d3.ru (2015), Thomas Ernst (2017) and our own (2026) give the same single difference in S2.</p>
+  <p><b>Order and marks.</b> The squares follow the song's order (about 1 in 720 if the six matches could have landed anywhere independently; the repeated refrain makes this approximate). The apostrophes match word ends: in S4 the marked letters equal the word-final consonants of its piece exactly (<code>src/significance.py</code>).</p>
+  <p><b>What remains.</b> S1 most likely begins with the title: without it, 9 of its 11 left-over letters are letters of <i>Einheitslied</i>. S3 has fewer cells than its text (the writer dropped a few letters). The other squares differ by a few letters; in S4, checked on a scan, they are clearly written (copying slips, or the wording of the copy the writer used). The dotted groups' meaning is open (<code>docs/open_questions.md</code>).</p>`,
+  stepWord:"Step",
+  needStory:`Run <code>python src/structure.py</code>, then <code>python src/build_dashboard.py</code>, to fill this view.`,
+  storyH:"How it was found",
+  storyLead:`Nobody guessed "a GDR song". The note itself showed what kind of text it was: a text with a repeated part, laid out in squares and jumbled, which no key we tried could read. That pointed away from decryption and towards recognising a known text, most likely a song. The charts in steps 1–5 are computed from the transcript by <code>src/structure.py</code> (results in <code>results/structure.txt</code>); only step 5 uses the song. Steps 6–7 summarise our working notes.`,
+  photoAlt:i=>`Page ${i} of the note (2015 photograph)`,photoCap:i=>`Page ${i}, as photographed in 2015 (from Klaus Schmeh's blog).`,
+  needPhotos:`Run <code>python src/fetch_photos.py</code> to show the two public photographs of the note here.`,
+  k1:"layout",t1:"Six sections, each a 13 × 13 square",
+  s1:(cells,tot,exp,p)=>`<p>The note falls into six sections, each ending on an underlined letter. They hold ${cells} letters: four are whole rows of 13, and three are exactly 13 × 13 = 169.</p>
+    <p>The spaces between the "words" are invented. But laid out 13 to a row, the word breaks land on the end of a row <b>${tot}</b> times, against <b>${exp}</b> by chance (p ≤ ${p}).</p>
+    <p class="then">So each section was written into a 13 × 13 square, then copied out row by row.</p>`,
+  cap1:(k,h,e)=>`S${k+1}: ${h} breaks on a row end (chance ${e})`,
+  lg1a:"last column (row end)",lg1b:"a word break right at the row end",
+  k2:"layout",t2:"Dotted groups in reserved cells around the centre",
+  s2:`<p>Nine groups of dotted letters (<i>r.s.f.d.</i>, <i>c.f.</i>, <i>r.l.b.</i> …) sit in deliberate places: on the middle row, just below the centre, and in S2 as two groups that are exact mirror images through the centre.</p>
+    <p class="then">The squares were planned cell by cell, not scribbled. The groups' meaning is still open (most likely numbers in a ten-letter code).</p>`,
+  lg2a:"dotted group",lg2b:"centre of a full square",
+  k3:"content",t3:"Squares 2–5 repeat something: a refrain",
+  s3:al=>`<p>Squares 2–5 are more alike in their letters than chance allows: a homogeneity score of <b>${al.chi2}</b>, against ${al.split_mean} ± ${al.split_sd} for random splits of the same letters (p ${al.p_split.toFixed(3)})${al.german_mean?` and ${al.german_mean} ± ${al.german_sd} for consecutive passages of German news (p ${al.p_german.toFixed(3)})`:""}. Simulations put the shared part at about 60 letters per square. Square 1 is different: it has fewer <i>w</i>, <i>g</i>, <i>n</i> and more <i>f</i>, <i>u</i>, <i>c</i>.</p>
+    <p class="then">A part repeated in each section after a different opening is the shape of stanzas with a refrain: a song.</p>`,
+  n3:`Letter counts per square (S1 red, S2–S5 blue). <i>w</i>, <i>u</i>, <i>g</i> are almost constant across S2–S5; S1 stands apart.`,
+  k4:"content",t4:'A "we" voice, and <i>eimat</i>',
+  s4:`<p>Against ordinary German the note has far too many <i>f</i>, <i>w</i> and <i>n</i> and too few <i>b</i>, <i>a</i>, <i>g</i>. Ranking real German sentences by how well they explain this mix put <i>wir</i>, <i>wenn</i> and <i>werden</i> on top and <i>ich</i>, <i>auch</i>, <i>nicht</i> at the bottom: a collective "we will …, if …" voice, as in a pledge or an anthem. The shared letters of S2–S5 fit words like <i>Freundschaft</i>, <i>Frieden</i> and <i>Heimat</i>, and below the last square stands <i>eimat</i>: the end of <i>Heimat</i>.</p>
+    <p class="then">A song of the youth or Pioneer kind, in German.</p>`,
+  th4:["letter","note","German","more ← → fewer than German"],
+  n4:n=>`All ${n} letters of the note against 4,000 random stretches of German news of the same length; letters at least 1.5 standard deviations off shown.`,
+  k5:"method",t5:"The letters look placed by hand, hopping",
+  s5:hop=>`<p>Neighbouring letters in the copy are unrelated, so no simple reading order shows. Before the text was known, only a weak trace showed: letters 2–3 cells apart, along the row or into the next row, were slightly linked.</p>
+    <p>With the song known it can be checked directly. The map shows where the next letter of the song sits relative to the previous one, compared with the same square shuffled: <b>to the right along the same row (2–4 cells), or down into the next row</b>; no consistent pattern in the row above. That fits a writer working right and down, though it is a pattern in letter pairs, not a recovered path. Per square z ${hop.per_square.map(z=>(z>0?"+":"")+z).join(", ")}; combined <b>+${hop.combined}</b>.</p>
+    <p class="then">The squares look filled by hand, by hopping, with no fixed rule we could find. So the way in was to recognise the text.</p>`,
+  rowLab:{"-1":"row above","0":"same row","1":"next row","2":"two rows down"},me:"last",
+  n5:"Columns: cells to the left (−) or right (+) of the previous letter. Numbers are z-scores over the six squares (green = more often than chance). Repeated letters blur the picture, so the exact path cannot be recovered.",
+  k6:"what failed",t6:"No key, rule or decoder we tried could read it",
+  s6:`<p>Before giving up on decryption, every keyed or rule-based way of filling a square we could think of was tried. Each solver was first shown to recover German text planted the same way, then run on the note against shuffled copies of it. All came out at chance level.</p>
+    <p>Decoders following the hop habit did pick up the structure (real squares beat shuffled ones), but could not read text: each square allows about 10<sup>66</sup> hand-chosen paths.</p>`,
+  th6:["method","scale","note"],
+  rows6:[["Turning grilles 13 × 13 (quarter and half turn; one card or one per square; centre written on every turn)","all cards and orders","chance"],
+    ["Every fixed-step fill (magic squares, diagonals, knight steps, skews)","4.4 million procedures","chance"],
+    ["Keyword columns, single and double; Nihilist square; VIC-style disrupted columns","widths 2–25","chance"],
+    ["Counting-out and step keys (incl. dates, HEIMAT)","31,682 keys","chance"],
+    ["Routes steered by the letters themselves","19,456 rules","chance"],
+    ["Substitution or a private alphabet on top (German and Russian)","many alphabets","nothing readable"],
+    ["Language-model decoders along the hop habit","beams up to 1 million","structure, no text"]],
+  k7:"the search",t7:"Search by letter counts, and the hit",
+  s7:d=>`<p>Jumbling inside a square changes the order of its letters, not their counts. So for each square, every stretch of a candidate text with the same length was compared by counts. The method was calibrated on planted sources first.</p>
+    <p>The collections below gave nothing, until GDR youth songs, the genre the clues pointed at. The <b>Einheitslied</b> (<i>Freundschaftskantate der Jugend</i>) matched S2 to <b>${d}</b> letter. The best stretch in 8.9 million letters of German news leaves 21 or more.</p>
+    <p class="then">Then everything above fell into place: the refrain repeats in S2–S5, S1 is the opening stanza, the odd letter mix is the song's own, the apostrophes match word ends, and <i>eimat</i> is the end of <i>Heimat</i>.</p>`,
+  th7:["collection","size","result"],
+  rows7:d=>[["German Bibles, German Wikisource (full dump), 475 books","≈ 590 million letters","no match"],
+    ["<i>Freundschaft</i>, Soviet-German newspaper","108 issues","no match"],
+    ["German folk songs","11,178 songs","no match"],
+    ["Russian Wikisource incl. revolutionary and Soviet songs","≈ 260 million windows","no match"],
+    ["Pioneer, school and GDR/Soviet-era texts","≈ 120 texts","no match"],
+    ["<b>GDR song archive</b> (lieder-aus-der-ddr.de)","1,680 songs",`<b>Einheitslied: S2 ${d} letter off</b>`]],
+  k8:"honesty",t8:"What we got wrong on the way",
+  wrong:[`<b>"Spelling habits"</b> (b, p, v written as f; sch as w), invented to explain the odd letter mix. It was simply the song's letters.`,
+    `<b>A private alphabet over Russian (or Hungarian)</b>, suggested by letter statistics. The letters were plain German all along.`,
+    `<b>Square 6 copied upside down</b>, with hyphens as row markers. This rested on two misread letters on the faint second page.`,
+    `<b>Words "read" by the decoders</b> (<i>herunterfahren</i>, <i>Breshnew</i> …). These were the language models' own inventions; shuffled squares gave equally fluent words.`,
+    `<b>The apostrophes:</b> our first idea was word ends; for days we argued they were something else. The first idea was right.`,
+    `<b>The search order:</b> the refrain and the "we" voice were visible days before GDR songs were searched. A complete song collection of the right genre should have come first.`],
+  missing:`dashboard/data.js is missing. Run <code>python src/build_dashboard.py</code>, then reload.`
+},
+ru:{
+  h1:"Записка из бутылки в Балтийске",
+  links:()=>A_(U.repo,"Репозиторий на GitHub")+A_(U.ru,"Описание на русском")+A_(U.schmeh,"Top 50 Шмеха, № 19")+A_(U.strana,"Публикация 2015 года («Страна Калининград»)")+A_(U.song,"Песня"),
+  sub:`Записка, найденная в бутылке в Балтийске в 2015 году, это песня ГДР <b>«Einheitslied»</b> («Песня единства» из <i>Freundschaftskantate der Jugend</i>; слова Херберта Келлера, музыка Андре Асриэля), разрезанная на шесть кусков подряд. Каждый кусок вписан в квадрат 13 × 13 с перемешанными буквами. Здесь каждый квадрат сравнивается со своим куском песни: буквы, которые использует текст, вычеркнуты, а остаток показан.`,
+  aiNote:"Перевод страницы выполнен с помощью ИИ (Claude). При расхождениях верна английская версия.",
+  tabSolution:"Решение",tabStory:"Как нашли",tabNote:"Записка",tabProof:"Доказательство",
+  lgUsed:"вычеркнуто: использовано текстом",lgLeft:"лишнее (какая из одинаковых букв считается лишней, не важно)",lgDot:"группа с точками (тоже буквы текста)",lgCentre:"центр",
+  lblLeft:"Лишнее в квадрате",lblMiss:"Не хватает букв текста",lblPiece:"Кусок песни этого квадрата (концы слов подчёркнуты; помеченные буквы записки совпадают с концами слов)",
+  noteH:"Записка как написана",noteP:`25 строк с двух листов (транскрипция v3.4), раскрашенные по квадратам. Нажмите на слово, чтобы увидеть его в квадрате. Группы с точками выделены жёлтым; «eimat» и точки стоят под последним квадратом.`,
+  proofH:"Почему это именно этот текст",
+  miniCap:(k,A)=>`<b>S${k+1}</b> · ${A.usedN}/${A.sq.length} использовано${A.nl?` · лишних ${A.nl}`:""}${A.nm?` · не хватает ${A.nm}`:""}`,
+  none:"нет",exact:"точно",off:n=>`расх. ${n}`,
+  sqTitle:(k,n,a,b)=>`Квадрат S${k+1} · ${n} ${plRu(n,"клетка","клетки","клеток")} · буквы песни ${k===0?"название + ":""}${a}–${b}`,
+  statusBig:(u,n)=>`использовано ${u} из ${n} клеток`,
+  statusSmall:(nl,nm,pl)=>`лишних клеток: ${nl} · не хватает букв текста: ${nm} · кусок из ${pl} ${plRu(pl,"буквы","букв","букв")}`,
+  excerpt:n=>`… ${n} ${plRu(n,"буква","буквы","букв")} …`,
+  noLyrics:`Текст песни здесь не воспроизводится: полный текст на ${A_(U.song,"lieder-aus-der-ddr.de")}; локальная сборка страницы показывает каждый кусок целиком.`,
+  thLetter:"буква",thSquare:"квадрат",thText:"текст",thDiff:"разница",
+  marks:(mk,fe)=>`<b>Пометки концов слов.</b> Помеченные буквы в квадрате: ${mk} · согласные на концах слов в этом куске: ${fe}.`,
+  title_:"название + ",
+  proof:(rows,r2,A2)=>`
+  <p><b>Один разрез, шесть кусков.</b> Название и песня разрезаны один раз на шесть кусков подряд, по одному на квадрат, с такими точками разреза, при которых остаётся меньше всего несовпадающих букв (без перекрытий и пропусков).</p>
+  <div class="tblWrap"><table><tr><th>квадрат</th><th>клеток</th><th>буквы песни</th><th>использовано</th><th>лишнее</th><th>не хватает</th></tr>${rows}</table></div>
+  <p><b>S2 по буквам.</b> 168 из 169 клеток это буквы его куска песни; одна <i>l</i> лишняя.</p>
+  ${r2}
+  <p><b>Случайность.</b> Считаем лишние буквы в квадрате плюс недостающие буквы текста. В 8,9 млн букв немецких новостей лучший отрезок для каждого квадрата, выбранный свободно, оставляет 20–36 (для S2 24); с той же свободой длины ±25 букв, что и у кусков песни, всё ещё 19–33 (для S2 21). Песня, разрезанная один раз на куски подряд, оставляет для S2 одну букву, для остальных 8–13. Это сравнение, а не точная вероятность ложного совпадения (<code>src/null_test.py</code>).</p>
+  <p><b>Независимые транскрипции.</b> d3.ru (2015), Томас Эрнст (2017) и наша (2026) дают в S2 одно и то же единственное расхождение.</p>
+  <p><b>Порядок и пометки.</b> Квадраты идут в порядке песни (примерно 1 из 720, если бы шесть совпадений могли оказаться где угодно независимо; повторяющийся припев делает оценку приблизительной). Апострофы совпадают с концами слов: в S4 помеченные буквы точно равны согласным на концах слов его куска (<code>src/significance.py</code>).</p>
+  <p><b>Что остаётся.</b> S1, скорее всего, начинается с названия: без него 9 из 11 лишних букв входят в слово <i>Einheitslied</i>. В S3 клеток меньше, чем букв в тексте (автор пропустил несколько букв). Остальные квадраты расходятся на несколько букв; в S4, проверенном по скану, они написаны чётко (описки или другая редакция текста, с которой переписывал автор). Смысл групп с точками не установлен (<code>docs/open_questions.ru.md</code>).</p>`,
+  stepWord:"Шаг",
+  needStory:`Запустите <code>python src/structure.py</code>, затем <code>python src/build_dashboard.py</code>, чтобы заполнить эту вкладку.`,
+  storyH:"Как нашли",
+  storyLead:`Никто не угадывал «песню ГДР». Сама записка показала, что это за текст: текст с повторяющейся частью, разложенный по квадратам и перемешанный, который не прочёл ни один проверенный ключ. Это уводило от расшифровки к опознанию известного текста, скорее всего песни. Графики шагов 1–5 рассчитаны по транскрипции скриптом <code>src/structure.py</code> (результаты в <code>results/structure.txt</code>); только шаг 5 использует песню. Шаги 6–7 подытоживают наши рабочие записи.`,
+  photoAlt:i=>`Страница ${i} записки (фото 2015 года)`,photoCap:i=>`Страница ${i}, фото 2015 года (из блога Клауса Шмеха).`,
+  needPhotos:`Запустите <code>python src/fetch_photos.py</code>, чтобы показать здесь две опубликованные фотографии записки.`,
+  k1:"раскладка",t1:"Шесть разделов, каждый это квадрат 13 × 13",
+  s1:(cells,tot,exp,p)=>`<p>Записка делится на шесть разделов, каждый заканчивается подчёркнутой буквой. В них ${cells} букв: четыре раздела состоят из целых строк по 13, а три ровно 13 × 13 = 169.</p>
+    <p>Пробелы между «словами» придуманы. Но если разложить буквы по 13 в строку, пробелы попадают на конец строки <b>${tot}</b> раз при <b>${num(exp)}</b> случайных (p ≤ ${p}).</p>
+    <p class="then">Значит, каждый раздел был вписан в квадрат 13 × 13 и переписан по строкам.</p>`,
+  cap1:(k,h,e)=>`S${k+1}: пробелов на конце строки ${h} (случайно ${num(e)})`,
+  lg1a:"последний столбец (конец строки)",lg1b:"пробел точно на конце строки",
+  k2:"раскладка",t2:"Группы с точками в оставленных клетках вокруг центра",
+  s2:`<p>Девять групп букв с точками (<i>r.s.f.d.</i>, <i>c.f.</i>, <i>r.l.b.</i> …) стоят в продуманных местах: в средней строке, сразу под центром, а в S2 две группы точно симметричны относительно центра.</p>
+    <p class="then">Квадраты расчерчены клетка за клеткой, а не исписаны как попало. Смысл групп пока не установлен (скорее всего, числа в коде из десяти букв).</p>`,
+  lg2a:"группа с точками",lg2b:"центр полного квадрата",
+  k3:"содержание",t3:"Квадраты 2–5 что-то повторяют: припев",
+  s3:al=>`<p>Квадраты 2–5 похожи друг на друга по составу букв больше, чем допускает случай: показатель однородности <b>${num(al.chi2)}</b> против ${num(al.split_mean)} ± ${num(al.split_sd)} у случайных разбиений тех же букв (p ${num(al.p_split.toFixed(3))})${al.german_mean?` и ${num(al.german_mean)} ± ${num(al.german_sd)} у отрезков немецких новостей подряд (p ${num(al.p_german.toFixed(3))})`:""}. По моделированию общая часть составляет около 60 букв на квадрат. Квадрат 1 другой: в нём меньше <i>w</i>, <i>g</i>, <i>n</i> и больше <i>f</i>, <i>u</i>, <i>c</i>.</p>
+    <p class="then">Часть, повторяющаяся в каждом разделе после другого начала, это куплеты с припевом: песня.</p>`,
+  n3:`Количество букв по квадратам (S1 красным, S2–S5 синим). <i>w</i>, <i>u</i>, <i>g</i> почти одинаковы в S2–S5; S1 стоит отдельно.`,
+  k4:"содержание",t4:'Речь от лица «мы» и <i>eimat</i>',
+  s4:`<p>По сравнению с обычным немецким в записке слишком много <i>f</i>, <i>w</i> и <i>n</i> и слишком мало <i>b</i>, <i>a</i>, <i>g</i>. Если ранжировать настоящие немецкие предложения по тому, как хорошо они объясняют этот состав, наверху оказываются <i>wir</i>, <i>wenn</i>, <i>werden</i> («мы», «если», «будем»), а внизу <i>ich</i>, <i>auch</i>, <i>nicht</i> («я», «тоже», «не»): речь от лица «мы» в духе «мы будем …, если …», как в клятве или гимне. Общие буквы S2–S5 подходят для слов <i>Freundschaft</i> (дружба), <i>Frieden</i> (мир) и <i>Heimat</i> (родина), а под последним квадратом стоит <i>eimat</i>: конец слова <i>Heimat</i>.</p>
+    <p class="then">Песня пионерского или молодёжного типа, на немецком.</p>`,
+  th4:["буква","записка","немецкий","больше ← → меньше, чем в немецком"],
+  n4:n=>`Все ${n} букв записки против 4 000 случайных отрезков немецких новостей той же длины; показаны буквы, отклоняющиеся не меньше чем на 1,5 стандартного отклонения.`,
+  k5:"метод",t5:"Буквы похоже расставлены вручную, скачками",
+  s5:hop=>`<p>Соседние буквы в копии между собой не связаны, так что простого порядка чтения не видно. До того как текст стал известен, был заметен лишь слабый след: буквы на расстоянии 2–3 клеток, в той же строке или в следующей, слегка связаны.</p>
+    <p>Когда песня известна, это можно проверить напрямую. Карта показывает, где стоит следующая буква песни относительно предыдущей, по сравнению с тем же квадратом, перемешанным случайно: <b>правее в той же строке (на 2–4 клетки) или в следующей строке</b>; в строке выше устойчивой закономерности нет. Это похоже на автора, который двигался вправо и вниз, хотя это закономерность в парах букв, а не восстановленный путь. По квадратам z ${hop.per_square.map(z=>(z>0?"+":"")+num(z)).join("; ")}; в сумме <b>+${num(hop.combined)}</b>.</p>
+    <p class="then">Квадраты похоже заполнены вручную, скачками, без постоянного правила, которое удалось бы найти. Поэтому путь к разгадке был в том, чтобы узнать текст.</p>`,
+  rowLab:{"-1":"строка выше","0":"та же строка","1":"следующая строка","2":"через строку"},me:"пред.",
+  n5:"Столбцы: клетки левее (−) или правее (+) предыдущей буквы. Числа это z-оценки по шести квадратам (зелёный = чаще случайного). Повторяющиеся буквы размывают картину, поэтому точный путь восстановить нельзя.",
+  k6:"что не сработало",t6:"Ни один проверенный ключ, правило или декодер не прочёл записку",
+  s6:`<p>Прежде чем отказаться от расшифровки, перепробовали все способы заполнения квадрата по ключу или правилу, какие удалось придумать. Каждый решатель сначала проверяли на подложенном немецком тексте, затем запускали на записке в сравнении с её перемешанными копиями. Всё на уровне случайности.</p>
+    <p>Декодеры, следующие привычке скачков, улавливали структуру (настоящие квадраты лучше перемешанных), но прочесть текст не могли: в каждом квадрате около 10<sup>66</sup> возможных путей, выбранных рукой.</p>`,
+  th6:["метод","масштаб","записка"],
+  rows6:[["Поворотные решётки 13 × 13 (поворот на четверть и на половину; одна карта или своя для каждого квадрата; запись в центр при каждом повороте)","все карты и порядки","случайно"],
+    ["Все заполнения с постоянным шагом (магические квадраты, диагонали, ходы коня, сдвиги)","4,4 млн процедур","случайно"],
+    ["Столбцы по ключевому слову, одинарные и двойные; нигилистский квадрат; разорванные столбцы в стиле VIC","ширина 2–25","случайно"],
+    ["Счёт-считалка и шаговые ключи (в том числе даты, HEIMAT)","31 682 ключа","случайно"],
+    ["Маршруты, управляемые самими буквами","19 456 правил","случайно"],
+    ["Замена букв или собственный алфавит поверх (немецкий и русский)","много алфавитов","ничего читаемого"],
+    ["Декодеры на языковых моделях по привычке скачков","лучи до 1 млн","структура есть, текста нет"]],
+  k7:"поиск",t7:"Поиск по количеству букв и находка",
+  s7:d=>`<p>Перемешивание внутри квадрата меняет порядок букв, но не их количество. Поэтому для каждого квадрата все отрезки текста-кандидата той же длины сравнивались по количеству букв. Метод сначала откалибровали на подложенных источниках.</p>
+    <p>Собрания ниже ничего не дали, пока дело не дошло до молодёжных песен ГДР, жанра, на который указывали признаки. <b>Einheitslied</b> (<i>Freundschaftskantate der Jugend</i>) совпала с S2 с точностью до <b>${d}</b> буквы. Лучший отрезок в 8,9 млн букв немецких новостей оставляет 21 и больше.</p>
+    <p class="then">После этого всё встало на места: припев повторяется в S2–S5, S1 это первый куплет, странный состав букв принадлежит самой песне, апострофы совпадают с концами слов, а <i>eimat</i> это конец слова <i>Heimat</i>.</p>`,
+  th7:["собрание","объём","результат"],
+  rows7:d=>[["Немецкие Библии, немецкий Викитекст (полный дамп), 475 книг","≈ 590 млн букв","нет совпадения"],
+    ["<i>Freundschaft</i>, советско-немецкая газета","108 номеров","нет совпадения"],
+    ["Немецкие народные песни","11 178 песен","нет совпадения"],
+    ["Русский Викитекст, в том числе революционные и советские песни","≈ 260 млн отрезков","нет совпадения"],
+    ["Пионерские, школьные тексты, тексты ГДР и советской эпохи","≈ 120 текстов","нет совпадения"],
+    ["<b>Архив песен ГДР</b> (lieder-aus-der-ddr.de)","1 680 песен",`<b>Einheitslied: S2, расхождение ${d} буква</b>`]],
+  k8:"честно",t8:"В чём мы ошибались по пути",
+  wrong:[`<b>«Привычки написания»</b> (b, p, v как f; sch как w), придуманные, чтобы объяснить странный состав букв. Это были просто буквы песни.`,
+    `<b>Собственный алфавит поверх русского (или венгерского)</b>, на который намекала статистика букв. Буквы с самого начала были обычными немецкими.`,
+    `<b>Квадрат 6, переписанный вверх ногами</b>, и дефисы как пометки строк. Это держалось на двух неверно прочитанных буквах на бледной второй странице.`,
+    `<b>Слова, «прочитанные» декодерами</b> (<i>herunterfahren</i>, <i>Breshnew</i> …). Это были выдумки языковых моделей; перемешанные квадраты давали столь же гладкие слова.`,
+    `<b>Апострофы:</b> первая мысль была, что это концы слов; несколько дней мы доказывали, что это что-то другое. Первая мысль оказалась верной.`,
+    `<b>Порядок поиска:</b> припев и речь от лица «мы» были видны за несколько дней до того, как начали искать среди песен ГДР. Полное собрание песен нужного жанра стоило проверить первым.`],
+  missing:`Нет файла dashboard/data.js. Запустите <code>python src/build_dashboard.py</code> и обновите страницу.`
+}};
+const t=(k,...a)=>{const v=I[LANG][k]; return typeof v==="function"?v(...a):v};
+if(!window.NOTE){document.body.innerHTML=`<div class="wrap"><h1>${t("h1")}</h1><p class="sub">${t("missing")}</p></div>`;return}
+const N=window.NOTE, W=13, CS=44, AB="abcdefghijklmnopqrstuvwxyz";
 let S=1, VIEW=["story","note","proof"].includes(location.hash.slice(1))?location.hash.slice(1):"solution", HL=null;
 const count=s=>{const c={}; for(const ch of s) c[ch]=(c[ch]||0)+1; return c};
 function analyse(k){
@@ -205,7 +406,7 @@ function analyse(k){
 }
 function boardSVG(k,mini){
   const A=analyse(k), sq=A.sq, R=Math.ceil(sq.length/W), centre=Math.floor(R/2)*W+6;
-  let h=`<svg class="board" viewBox="-2 -2 ${W*CS+4} ${R*CS+4}" role="img" aria-label="Square S${k+1}">`;
+  let h=`<svg class="board" viewBox="-2 -2 ${W*CS+4} ${R*CS+4}" role="img" aria-label="S${k+1}">`;
   const seen={};
   sq.forEach((c,i)=>{const x=(i%W)*CS, y=Math.floor(i/W)*CS, cls=["cell"];
     seen[c.l]=(seen[c.l]||0)+1;
@@ -220,32 +421,35 @@ function boardSVG(k,mini){
 }
 function renderMinis(){
   $("#minis").innerHTML=N.squares.map((_,k)=>{const A=analyse(k);
-    return `<button class="mini" data-k="${k}" aria-pressed="${k===S}">${boardSVG(k,true)}<span class="cap"><b>S${k+1}</b> · ${A.usedN}/${A.sq.length} used${A.nl?` · ${A.nl} left`:""}${A.nm?` · ${A.nm} missing`:""}</span></button>`}).join("");
+    return `<button class="mini" data-k="${k}" aria-pressed="${k===S}">${boardSVG(k,true)}<span class="cap">${t("miniCap",k,A)}</span></button>`}).join("");
 }
-function chips(obj,cls){const s=[]; Object.keys(obj).sort().forEach(ch=>{for(let i=0;i<obj[ch];i++) s.push(`<span class="chip ${cls}">${ch}</span>`)}); return s.join("")||`<span class="note">none</span>`}
+function chips(obj,cls){const s=[]; Object.keys(obj).sort().forEach(ch=>{for(let i=0;i<obj[ch];i++) s.push(`<span class="chip ${cls}">${ch}</span>`)}); return s.join("")||`<span class="note">${t("none")}</span>`}
+function letterTable(A,rows,diff){
+  return `<tr><th>${t("thLetter")}</th>${rows.map(ch=>`<td class="lt">${ch}</td>`).join("")}</tr><tr><th>${t("thSquare")}</th>${rows.map(ch=>`<td>${A.H[ch]||0}</td>`).join("")}</tr><tr><th>${t("thText")}</th>${rows.map(ch=>`<td>${A.T[ch]||0}</td>`).join("")}</tr>`+
+    (diff?`<tr><th>${t("thDiff")}</th>${rows.map(ch=>{const d=(A.H[ch]||0)-(A.T[ch]||0); return `<td class="${d>0?"plus":d<0?"minus":""}">${d>0?"+":""}${d||""}</td>`}).join("")}</tr>`:"");
+}
 function renderSolution(){
   const k=S, A=analyse(k);
-  const TL=N.title.length, ra=N.cuts[k]-TL, rb=N.cuts[k+1]-TL;
-  $("#sqTitle").textContent=`Square S${k+1} · ${A.sq.length} cells · song letters ${k===0?"title + ":""}${Math.max(ra,0)}–${rb}`;
+  const TL=N.title.length;
+  $("#sqTitle").textContent=t("sqTitle",k,A.sq.length,Math.max(N.cuts[k]-TL,0),N.cuts[k+1]-TL);
   $("#board").outerHTML=boardSVG(k,false).replace('<svg class="board"','<svg class="board" id="board"');
-  $("#status").innerHTML=`<span class="big ${A.nl+A.nm<=1?"ok":""}">${A.usedN} of ${A.sq.length} cells used</span><span class="note">${A.nl} cell${A.nl===1?"":"s"} left over · ${A.nm} text letter${A.nm===1?"":"s"} missing · piece of ${A.plen} letters</span>`;
+  $("#status").innerHTML=`<span class="big ${A.nl+A.nm<=1?"ok":""}">${t("statusBig",A.usedN,A.sq.length)}</span><span class="note">${t("statusSmall",A.nl,A.nm,A.plen)}</span>`;
   $("#leftChips").innerHTML=chips(A.left,"left"); $("#missChips").innerHTML=chips(A.miss,"miss");
-  // the piece with context, in real words
   const a=N.cuts[k], b=N.cuts[k+1]; let h="";
   if(!N.words){const P=N.pieces[k];
-    h=`<span class="cut">⟦</span>${P.head} <span class="ctx">… ${b-a} letters …</span> ${P.tail}<span class="cut">⟧</span><br><span class="note">The song's lyrics are not redistributed here: read the full text at <a href="https://lieder-aus-der-ddr.de/einheitslied/" target="_blank" rel="noopener">lieder-aus-der-ddr.de</a>, or build the dashboard locally to see each piece in full.</span>`}
+    h=`<span class="cut">⟦</span>${P.head} <span class="ctx">${t("excerpt",b-a)}</span> ${P.tail}<span class="cut">⟧</span><br><span class="note">${t("noLyrics")}</span>`}
   else N.words.forEach(w=>{ if(w.b<a-40||w.a>b+40) return;
     let s=""; for(let j=w.a;j<w.b;j++){const ch=w.w[j-w.a]||""; const inside=j>=a&&j<b, fin=j===w.b-1;
       if(j===a) s+=`<span class="cut">⟦</span>`; s+=`<span class="${inside?"":"ctx"} ${fin?"fin":""}">${ch}</span>`; if(j===b-1) s+=`<span class="cut">⟧</span>`}
     h+=`<span class="w">${s}</span> `});
   $("#piece").innerHTML=h;
   const rows=AB.split("").filter(ch=>(A.H[ch]||0)+(A.T[ch]||0)>0).sort((x,y)=>((A.T[y]||0)+(A.H[y]||0))-((A.T[x]||0)+(A.H[x]||0)));
-  $("#tbl").innerHTML=`<tr><th>letter</th>${rows.map(ch=>`<td class="lt">${ch}</td>`).join("")}</tr><tr><th>square</th>${rows.map(ch=>`<td>${A.H[ch]||0}</td>`).join("")}</tr><tr><th>text</th>${rows.map(ch=>`<td>${A.T[ch]||0}</td>`).join("")}</tr><tr><th>diff</th>${rows.map(ch=>{const d=(A.H[ch]||0)-(A.T[ch]||0); return `<td class="${d>0?"plus":d<0?"minus":""}">${d>0?"+":""}${d||""}</td>`}).join("")}</tr>`;
+  $("#tbl").innerHTML=letterTable(A,rows,true);
   const mk={}, fe={}; A.sq.forEach(c=>{if(c.m&&c.l!=="e") mk[c.l]=(mk[c.l]||0)+1});
   if(N.words) N.words.forEach(w=>{const j=w.b-1; if(j>=a&&j<b){const ch=N.text[j]; if(ch!=="e") fe[ch]=(fe[ch]||0)+1}});
   else Object.entries(N.pieces[k].F).forEach(([ch,n])=>{if(ch!=="e") fe[ch]=n});
   const fmt=o=>Object.entries(o).sort((x,y)=>y[1]-x[1]).map(([c,n])=>`${c}${n}`).join(" ");
-  $("#marksLine").innerHTML=`<b>Word-end marks.</b> Marked letters in the square: ${fmt(mk)} · word-final consonants in this piece: ${fmt(fe)}.`;
+  $("#marksLine").innerHTML=t("marks",fmt(mk),fmt(fe));
 }
 function renderNote(){
   let h="", prev=-1;
@@ -257,21 +461,14 @@ function renderNote(){
   $("#page").innerHTML=h;
 }
 function renderProof(){
-  const rows=N.squares.map((_,k)=>{const A=analyse(k), TL=N.title.length; return `<tr><td>S${k+1}</td><td>${A.sq.length}</td><td>${k===0?"title + ":""}${Math.max(N.cuts[k]-TL,0)}–${N.cuts[k+1]-TL}</td><td>${A.usedN}</td><td>${A.nl}</td><td>${A.nm}</td></tr>`}).join("");
+  const TL=N.title.length;
+  const rows=N.squares.map((_,k)=>{const A=analyse(k); return `<tr><td>S${k+1}</td><td>${A.sq.length}</td><td>${k===0?t("title_"):""}${Math.max(N.cuts[k]-TL,0)}–${N.cuts[k+1]-TL}</td><td>${A.usedN}</td><td>${A.nl}</td><td>${A.nm}</td></tr>`}).join("");
   const A2=analyse(1), r2=AB.split("").filter(ch=>(A2.H[ch]||0)+(A2.T[ch]||0)>0).sort((x,y)=>(A2.T[y]||0)-(A2.T[x]||0));
-  $("#proof").innerHTML=`
-  <p><b>One cut, six pieces.</b> The title plus the song is cut once into six consecutive pieces, one per square, choosing the cut points that leave the fewest letters unmatched (no overlaps, no gaps).</p>
-  <div class="tblWrap"><table><tr><th>square</th><th>cells</th><th>text letters</th><th>cells used</th><th>left over</th><th>text missing</th></tr>${rows}</table></div>
-  <p><b>S2, letter by letter.</b> 168 of its 169 cells are the letters of its piece of the song; one <i>l</i> is left over.</p>
-  <div class="tblWrap"><table><tr><th>letter</th>${r2.map(c=>`<td class="lt">${c}</td>`).join("")}</tr><tr><th>square</th>${r2.map(c=>`<td>${A2.H[c]||0}</td>`).join("")}</tr><tr><th>text</th>${r2.map(c=>`<td>${A2.T[c]||0}</td>`).join("")}</tr></table></div>
-  <p><b>Chance.</b> Counting letters left over in the square plus text letters missing from it: in 8.9 million letters of German news the best stretch for each square, chosen freely, leaves 20–36 (S2: 24); given the same ±25-letter freedom of length as the song pieces, still 19–33 (S2: 21). The song, cut once into consecutive pieces, leaves S2 1 and the others 8–13. A benchmark, not an exact false-positive probability (<code>src/null_test.py</code>).</p>
-  <p><b>Independent transcriptions.</b> d3.ru (2015), Thomas Ernst (2017) and our own (2026) give the same single difference in S2.</p>
-  <p><b>Order and marks.</b> The squares follow the song's order (about 1 in 720 if the six matches could have landed anywhere independently; the repeated refrain makes this approximate). The apostrophes match word ends: in S4 the marked letters equal the word-final consonants of its piece exactly (<code>src/significance.py</code>).</p>
-  <p><b>What remains.</b> S1 most likely begins with the title: without it, 9 of its 11 left-over letters are letters of <i>Einheitslied</i>. S3 has fewer cells than its text (the writer dropped a few letters). The other squares differ by a few letters; in S4, checked on a scan, they are clearly written (copying slips, or the wording of the copy the writer used). The dotted groups' meaning is open (<code>docs/open_questions.md</code>).</p>`;
+  $("#proof").innerHTML=t("proof",rows,`<div class="tblWrap"><table>${letterTable(A2,r2,false)}</table></div>`,A2);
 }
 function storySVG(k,mode){
   const sq=N.squares[k], R=Math.ceil(sq.length/W), centre=Math.floor(R/2)*W+6;
-  let h=`<svg viewBox="-2 -2 ${W*CS+4} ${R*CS+4}" role="img" aria-label="Square S${k+1}">`;
+  let h=`<svg viewBox="-2 -2 ${W*CS+4} ${R*CS+4}" role="img" aria-label="S${k+1}">`;
   sq.forEach((c,i)=>{const x=(i%W)*CS, y=Math.floor(i/W)*CS, cls=["cell"];
     if(mode==="rows"){ if(i%W===W-1) cls.push("rowend"); if(c.e&&i%W===W-1&&i<sq.length-1) cls.push("brk") }
     if(mode==="dots"){ if(c.d) cls.push("dg"); if(i===centre&&R===13) cls.push("ctr") }
@@ -279,82 +476,53 @@ function storySVG(k,mode){
   return h+`</svg>`;
 }
 function six(mode,cap){return `<div class="six">${N.squares.map((_,k)=>`<figure>${storySVG(k,mode)}<figcaption>${cap(k)}</figcaption></figure>`).join("")}</div>`}
-function step(n,kick,title,txt,fig){return `<article class="sheet step" id="step-${n}"><div class="txt"><span class="kick">Step ${n} · ${kick}</span><h3>${title}</h3>${txt}</div><div class="fig">${fig}</div></article>`}
+function step(n,kick,title,txt,fig){return `<article class="sheet step" id="step-${n}"><div class="txt"><span class="kick">${t("stepWord")} ${n} · ${kick}</span><h3>${title}</h3>${txt}</div><div class="fig">${fig}</div></article>`}
+const tbl=(cls,head,rows)=>`<div class="tblWrap"><table class="${cls}"><tr>${head.map(x=>`<th>${x}</th>`).join("")}</tr>${rows.map(r=>`<tr>${r.map(x=>`<td>${x}</td>`).join("")}</tr>`).join("")}</table></div>`;
 function renderStory(){
   const T=N.story, el=$("#v-story");
-  if(!T){el.innerHTML=`<div class="sheet"><p class="note">Run <code>python src/structure.py</code>, then <code>python src/build_dashboard.py</code>, to fill this view.</p></div>`;return}
-  const rows=T.rows, al=T.alike, mix=T.mix, hop=T.hops, A2=analyse(1);
-  let h=`<div class="sheet stack"><h2>How it was found</h2>
-  <p class="lead">Nobody guessed "a GDR song". The note itself showed what kind of text it was: a text with a repeated part, laid out in squares and jumbled, which no key we tried could read. That pointed away from decryption and towards recognising a known text, most likely a song. The charts in steps 1–5 are computed from the transcript by <code>src/structure.py</code> (results in <code>results/structure.txt</code>); only step 5 uses the song. Steps 6–7 summarise our working notes.</p>
-  ${N.photos&&N.photos.length?`<div class="photos">${N.photos.map((p,i)=>`<figure><img src="${p}" alt="Page ${i+1} of the note (2015 photograph)" loading="lazy"><figcaption>Page ${i+1}, as photographed in 2015 (from Klaus Schmeh's blog).</figcaption></figure>`).join("")}</div>`:`<p class="note">Run <code>python src/fetch_photos.py</code> to show the two public photographs of the note here.</p>`}</div>`;
-  h+=step(1,"layout","Six sections, each a 13 × 13 square",
-   `<p>The note falls into six sections, each ending on an underlined letter. They hold ${rows.per_square.map(r=>r.cells).join(", ")} letters: four are whole rows of 13, and three are exactly 13 × 13 = 169.</p>
-    <p>The spaces between the "words" are invented. But laid out 13 to a row, the word breaks land on the end of a row <b>${rows.total}</b> times, against <b>${rows.expected}</b> by chance (p ≤ ${rows.p.toExponential(0)}).</p>
-    <p class="then">So each section was written into a 13 × 13 square, then copied out row by row.</p>`,
-   six("rows",k=>`S${k+1}: ${rows.per_square[k].on_row_end} breaks on a row end (chance ${rows.per_square[k].expected})`)+`<div class="legend"><span><i class="sw" style="background:var(--inkSoft)"></i>last column (row end)</span><span><i class="sw" style="background:var(--marginSoft);border-color:var(--margin)"></i>a word break right at the row end</span></div>`);
-  h+=step(2,"layout","Dotted groups in reserved cells around the centre",
-   `<p>Nine groups of dotted letters (<i>r.s.f.d.</i>, <i>c.f.</i>, <i>r.l.b.</i> …) sit in deliberate places: on the middle row, just below the centre, and in S2 as two groups that are exact mirror images through the centre.</p>
-    <p class="then">The squares were planned cell by cell, not scribbled. The groups' meaning is still open (most likely numbers in a ten-letter code).</p>`,
-   six("dots",k=>`S${k+1}: ${T.groups.filter(g=>g.square===k+1).map(g=>g.word).join(" ")}`)+`<div class="legend"><span><i class="sw" style="background:var(--amberSoft);border-color:var(--amber)"></i>dotted group</span><span><i class="sw" style="border:2px solid var(--fg)"></i>centre of a full square</span></div>`);
+  if(!T){el.innerHTML=`<div class="sheet"><p class="note">${t("needStory")}</p></div>`;return}
+  const rows=T.rows, al=T.alike, mix=T.mix, hop=T.hops, A2=analyse(1), d2=A2.nl+A2.nm;
+  let h=`<div class="sheet stack"><h2>${t("storyH")}</h2><p class="lead">${t("storyLead")}</p>
+  ${N.photos&&N.photos.length?`<div class="photos">${N.photos.map((p,i)=>`<figure><img src="${p}" alt="${t("photoAlt",i+1)}" loading="lazy"><figcaption>${t("photoCap",i+1)}</figcaption></figure>`).join("")}</div>`:`<p class="note">${t("needPhotos")}</p>`}</div>`;
+  h+=step(1,t("k1"),t("t1"),t("s1",rows.per_square.map(r=>r.cells).join(", "),rows.total,rows.expected,rows.p.toExponential(0)),
+   six("rows",k=>t("cap1",k,rows.per_square[k].on_row_end,rows.per_square[k].expected))+`<div class="legend"><span><i class="sw" style="background:var(--inkSoft)"></i>${t("lg1a")}</span><span><i class="sw" style="background:var(--marginSoft);border-color:var(--margin)"></i>${t("lg1b")}</span></div>`);
+  h+=step(2,t("k2"),t("t2"),t("s2"),
+   six("dots",k=>`S${k+1}: ${T.groups.filter(g=>g.square===k+1).map(g=>g.word).join(" ")}`)+`<div class="legend"><span><i class="sw" style="background:var(--amberSoft);border-color:var(--amber)"></i>${t("lg2a")}</span><span><i class="sw" style="border:2px solid var(--fg)"></i>${t("lg2b")}</span></div>`);
   const lets=Object.keys(al.counts), mx=Math.max(...lets.flatMap(c=>al.counts[c]));
-  h+=step(3,"content","Squares 2–5 repeat something: a refrain",
-   `<p>Squares 2–5 are more alike in their letters than chance allows: a homogeneity score of <b>${al.chi2}</b>, against ${al.split_mean} ± ${al.split_sd} for random splits of the same letters (p ${al.p_split.toFixed(3)})${al.german_mean?` and ${al.german_mean} ± ${al.german_sd} for consecutive passages of German news (p ${al.p_german.toFixed(3)})`:""}. Simulations put the shared part at about 60 letters per square. Square 1 is different: it has fewer <i>w</i>, <i>g</i>, <i>n</i> and more <i>f</i>, <i>u</i>, <i>c</i>.</p>
-    <p class="then">A part repeated in each section after a different opening is the shape of stanzas with a refrain: a song.</p>`,
-   `<div class="tblWrap"><table class="bars"><tr><th>letter</th>${N.squares.map((_,k)=>`<th>S${k+1}</th>`).join("")}</tr>${lets.map(c=>`<tr><td class="lt">${c}</td>${al.counts[c].map((v,k)=>`<td><span class="cnt"><i style="width:${(v/mx*40).toFixed(0)}px;background:${k===0?"var(--margin)":k>=1&&k<=4?"var(--ink)":"var(--muted)"}"></i>${v}</span></td>`).join("")}</tr>`).join("")}</table></div><p class="note">Letter counts per square (S1 red, S2–S5 blue). <i>w</i>, <i>u</i>, <i>g</i> are almost constant across S2–S5; S1 stands apart.</p>`);
-  if(mix){const sel=mix.rows.filter(d=>Math.abs(d.z)>=1.5), zmax=Math.max(...sel.map(d=>Math.abs(d.z)));
-  h+=step(4,"content",'A "we" voice, and <i>eimat</i>',
-   `<p>Against ordinary German the note has far too many <i>f</i>, <i>w</i> and <i>n</i> and too few <i>b</i>, <i>a</i>, <i>g</i>. Ranking real German sentences by how well they explain this mix put <i>wir</i>, <i>wenn</i> and <i>werden</i> on top and <i>ich</i>, <i>auch</i>, <i>nicht</i> at the bottom: a collective "we will …, if …" voice, as in a pledge or an anthem. The shared letters of S2–S5 fit words like <i>Freundschaft</i>, <i>Frieden</i> and <i>Heimat</i>, and below the last square stands <i>eimat</i>: the end of <i>Heimat</i>.</p>
-    <p class="then">A song of the youth or Pioneer kind, in German.</p>`,
-   `<div class="tblWrap"><table class="bars"><tr><th>letter</th><th>note</th><th>German</th><th>more ← → fewer than German</th></tr>${sel.map(d=>`<tr><td class="lt">${d.letter}</td><td>${d.note}</td><td>${Math.round(d.german)}</td><td class="b"><div class="barbox"><span class="axis"></span><i style="${d.z>0?`left:50%`:`right:50%`};width:${(Math.abs(d.z)/zmax*50).toFixed(1)}%;background:${d.z>0?"var(--ink)":"var(--margin)"}"></i></div></td></tr>`).join("")}</table></div><p class="note">All ${mix.letters} letters of the note against 4,000 random stretches of German news of the same length; letters at least 1.5 standard deviations off shown.</p>`)}
-  if(hop){const lab={"-1":"row above","0":"same row","1":"next row","2":"two rows down"};
-  h+=step(5,"method","The letters look placed by hand, hopping",
-   `<p>Neighbouring letters in the copy are unrelated, so no simple reading order shows. Before the text was known, only a weak trace showed: letters 2–3 cells apart, along the row or into the next row, were slightly linked.</p>
-    <p>With the song known it can be checked directly. The map shows where the next letter of the song sits relative to the previous one, compared with the same square shuffled: <b>to the right along the same row (2–4 cells), or down into the next row</b>; no consistent pattern in the row above. That fits a writer working right and down, though it is a pattern in letter pairs, not a recovered path. Per square z ${hop.per_square.map(z=>(z>0?"+":"")+z).join(", ")}; combined <b>+${hop.combined}</b>.</p>
-    <p class="then">The squares look filled by hand, by hopping, with no fixed rule we could find. So the way in was to recognise the text.</p>`,
-   `<div class="tblWrap"><table class="heat"><tr><th></th>${hop.cols.map(c=>`<th>${c>0?"+":""}${c}</th>`).join("")}</tr>${hop.grid.map((r,i)=>`<tr><th>${lab[hop.rows[i]]}</th>${r.map(z=>z===null?`<td class="me">last</td>`:`<td style="background:color-mix(in srgb, ${z>0?"var(--ok)":"var(--margin)"} ${Math.min(Math.abs(z)/3.5,1)*60}%, var(--sheet))">${z>0?"+":""}${z.toFixed(1)}</td>`).join("")}</tr>`).join("")}</table></div><p class="note">Columns: cells to the left (−) or right (+) of the previous letter. Numbers are z-scores over the six squares (green = more often than chance). Repeated letters blur the picture, so the exact path cannot be recovered.</p>`)}
-  h+=step(6,"what failed","No key, rule or decoder we tried could read it",
-   `<p>Before giving up on decryption, every keyed or rule-based way of filling a square we could think of was tried. Each solver was first shown to recover German text planted the same way, then run on the note against shuffled copies of it. All came out at chance level.</p>
-    <p>Decoders following the hop habit did pick up the structure (real squares beat shuffled ones), but could not read text: each square allows about 10<sup>66</sup> hand-chosen paths.</p>`,
-   `<div class="tblWrap"><table class="fails"><tr><th>method</th><th>scale</th><th>note</th></tr>
-    <tr><td>Turning grilles 13 × 13 (quarter and half turn; one card or one per square; centre written on every turn)</td><td>all cards and orders</td><td>chance</td></tr>
-    <tr><td>Every fixed-step fill (magic squares, diagonals, knight steps, skews)</td><td>4.4 million procedures</td><td>chance</td></tr>
-    <tr><td>Keyword columns, single and double; Nihilist square; VIC-style disrupted columns</td><td>widths 2–25</td><td>chance</td></tr>
-    <tr><td>Counting-out and step keys (incl. dates, HEIMAT)</td><td>31,682 keys</td><td>chance</td></tr>
-    <tr><td>Routes steered by the letters themselves</td><td>19,456 rules</td><td>chance</td></tr>
-    <tr><td>Substitution or a private alphabet on top (German and Russian)</td><td>many alphabets</td><td>nothing readable</td></tr>
-    <tr><td>Language-model decoders along the hop habit</td><td>beams up to 1 million</td><td>structure, no text</td></tr></table></div>`);
-  h+=step(7,"the search","Search by letter counts, and the hit",
-   `<p>Jumbling inside a square changes the order of its letters, not their counts. So for each square, every stretch of a candidate text with the same length was compared by counts. The method was calibrated on planted sources first.</p>
-    <p>The collections below gave nothing, until GDR youth songs, the genre the clues pointed at. The <b>Einheitslied</b> (<i>Freundschaftskantate der Jugend</i>) matched S2 to <b>${A2.nl+A2.nm}</b> letter. The best stretch in 8.9 million letters of German news leaves 21 or more.</p>
-    <p class="then">Then everything above fell into place: the refrain repeats in S2–S5, S1 is the opening stanza, the odd letter mix is the song's own, the apostrophes match word ends, and <i>eimat</i> is the end of <i>Heimat</i>.</p>`,
-   `<div class="tblWrap"><table class="fails"><tr><th>collection</th><th>size</th><th>result</th></tr>
-    <tr><td>German Bibles, German Wikisource (full dump), 475 books</td><td>≈ 590 million letters</td><td>no match</td></tr>
-    <tr><td><i>Freundschaft</i>, Soviet-German newspaper</td><td>108 issues</td><td>no match</td></tr>
-    <tr><td>German folk songs</td><td>11,178 songs</td><td>no match</td></tr>
-    <tr><td>Russian Wikisource incl. revolutionary and Soviet songs</td><td>≈ 260 million windows</td><td>no match</td></tr>
-    <tr><td>Pioneer, school and GDR/Soviet-era texts</td><td>≈ 120 texts</td><td>no match</td></tr>
-    <tr><td><b>GDR song archive</b> (lieder-aus-der-ddr.de)</td><td>1,680 songs</td><td><b>Einheitslied: S2 ${A2.nl+A2.nm} letter off</b></td></tr></table></div>`);
-  h+=`<article class="sheet stack"><span class="kick">Step 8 · honesty</span><h3 style="font:700 1.65rem/1.05 var(--f-hand);color:var(--ink);margin:0">What we got wrong on the way</h3>
-   <ul class="wrong">
-    <li><b>"Spelling habits"</b> (b, p, v written as f; sch as w), invented to explain the odd letter mix. It was simply the song's letters.</li>
-    <li><b>A private alphabet over Russian (or Hungarian)</b>, suggested by letter statistics. The letters were plain German all along.</li>
-    <li><b>Square 6 copied upside down</b>, with hyphens as row markers. This rested on two misread letters on the faint second page.</li>
-    <li><b>Words "read" by the decoders</b> (<i>herunterfahren</i>, <i>Breshnew</i> …). These were the language models' own inventions; shuffled squares gave equally fluent words.</li>
-    <li><b>The apostrophes:</b> our first idea was word ends; for days we argued they were something else. The first idea was right.</li>
-    <li><b>The search order:</b> the refrain and the "we" voice were visible days before GDR songs were searched. A complete song collection of the right genre should have come first.</li>
-   </ul></article>`;
+  h+=step(3,t("k3"),t("t3"),t("s3",al),
+   `<div class="tblWrap"><table class="bars"><tr><th>${t("thLetter")}</th>${N.squares.map((_,k)=>`<th>S${k+1}</th>`).join("")}</tr>${lets.map(c=>`<tr><td class="lt">${c}</td>${al.counts[c].map((v,k)=>`<td><span class="cnt"><i style="width:${(v/mx*40).toFixed(0)}px;background:${k===0?"var(--margin)":k>=1&&k<=4?"var(--ink)":"var(--muted)"}"></i>${v}</span></td>`).join("")}</tr>`).join("")}</table></div><p class="note">${t("n3")}</p>`);
+  if(mix){const sel=mix.rows.filter(d=>Math.abs(d.z)>=1.5), zmax=Math.max(...sel.map(d=>Math.abs(d.z))), th=t("th4");
+  h+=step(4,t("k4"),t("t4"),t("s4"),
+   `<div class="tblWrap"><table class="bars"><tr>${th.map(x=>`<th>${x}</th>`).join("")}</tr>${sel.map(d=>`<tr><td class="lt">${d.letter}</td><td>${d.note}</td><td>${Math.round(d.german)}</td><td class="b"><div class="barbox"><span class="axis"></span><i style="${d.z>0?`left:50%`:`right:50%`};width:${(Math.abs(d.z)/zmax*50).toFixed(1)}%;background:${d.z>0?"var(--ink)":"var(--margin)"}"></i></div></td></tr>`).join("")}</table></div><p class="note">${t("n4",mix.letters)}</p>`)}
+  if(hop){const lab=t("rowLab");
+  h+=step(5,t("k5"),t("t5"),t("s5",hop),
+   `<div class="tblWrap"><table class="heat"><tr><th></th>${hop.cols.map(c=>`<th>${c>0?"+":""}${c}</th>`).join("")}</tr>${hop.grid.map((r,i)=>`<tr><th>${lab[hop.rows[i]]}</th>${r.map(z=>z===null?`<td class="me">${t("me")}</td>`:`<td style="background:color-mix(in srgb, ${z>0?"var(--ok)":"var(--margin)"} ${Math.min(Math.abs(z)/3.5,1)*60}%, var(--sheet))">${z>0?"+":""}${z.toFixed(1)}</td>`).join("")}</tr>`).join("")}</table></div><p class="note">${t("n5")}</p>`)}
+  h+=step(6,t("k6"),t("t6"),t("s6"),tbl("fails",t("th6"),t("rows6")));
+  h+=step(7,t("k7"),t("t7"),t("s7",d2),tbl("fails",t("th7"),t("rows7",d2)));
+  h+=`<article class="sheet stack"><span class="kick">${t("stepWord")} 8 · ${t("k8")}</span><h3 style="font:700 1.65rem/1.05 var(--f-hand);color:var(--ink);margin:0">${t("t8")}</h3>
+   <ul class="wrong">${t("wrong").map(x=>`<li>${x}</li>`).join("")}</ul></article>`;
   el.innerHTML=h;
 }
+function applyStatic(){
+  document.documentElement.lang=LANG;
+  document.title=t("h1");
+  document.querySelectorAll("[data-t]").forEach(e=>{e.innerHTML=t(e.dataset.t)});
+  $(".ai").hidden=!t("aiNote");
+  document.querySelectorAll("#langTabs button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.lang===LANG));
+}
 function render(){
+  applyStatic();
   document.querySelectorAll("#views button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.v===VIEW));
   ["solution","story","note","proof"].forEach(v=>$("#v-"+v).hidden=v!==VIEW);
   $("#sqTabs").hidden=VIEW!=="solution";
-  $("#sqTabs").innerHTML=N.squares.map((_,k)=>{const A=analyse(k); return `<button data-k="${k}" aria-pressed="${k===S}">S${k+1}<span class="n">${A.nl+A.nm<=1?"exact":A.nl+A.nm+" off"}</span></button>`}).join("");
+  $("#sqTabs").innerHTML=N.squares.map((_,k)=>{const A=analyse(k); return `<button data-k="${k}" aria-pressed="${k===S}">S${k+1}<span class="n">${A.nl+A.nm<=1?t("exact"):t("off",A.nl+A.nm)}</span></button>`}).join("");
   if(VIEW==="solution"){renderMinis(); renderSolution()} else if(VIEW==="story") renderStory(); else if(VIEW==="note") renderNote(); else renderProof();
 }
 document.addEventListener("click",e=>{
+  const l=e.target.closest("#langTabs button"); if(l){LANG=l.dataset.lang; try{localStorage.setItem("bbn-lang",LANG)}catch(_){}
+    const u=new URL(location.href); u.searchParams.set("lang",LANG); try{history.replaceState(null,"",u)}catch(_){} render(); return}
   const v=e.target.closest("#views button"); if(v){VIEW=v.dataset.v; render(); return}
-  const t=e.target.closest("#sqTabs button, .mini"); if(t){S=+t.dataset.k; HL=null; VIEW="solution"; render(); return}
+  const tb=e.target.closest("#sqTabs button, .mini"); if(tb){S=+tb.dataset.k; HL=null; VIEW="solution"; render(); return}
   const w=e.target.closest(".tw[data-k]"); if(w){S=+w.dataset.k; HL={k:S,cells:w.dataset.cells.split(",").filter(Boolean).map(Number)}; VIEW="solution"; render(); window.scrollTo({top:0,behavior:"smooth"})}
 });
 render();
