@@ -120,7 +120,7 @@ We got things wrong on the way (spelling-habit theories, a Russian "private alph
 ## What is still open
 
 - **The dotted groups.** 27 consonants from only ten letters (b c d f l n r s t z), placed around the squares' centres. In S2 the second group is the first shifted by one letter in that alphabet, which suggests numbers in a ten-letter code: perhaps a date, a class or a school number. One outside fact would fix the code.
-- **The remaining letter differences** in S1 and S3–S6: the writer's slips, or a printed version of the song that differs from the one online.
+- **The remaining letter differences** in S1 and S3–S6. They are not skipped or swapped words, and not a misplaced square boundary. They pair up as cursive look-alikes, mostly *e* and *l* in both directions, more often than random slips do (p ≈ 0.07): most likely the writer copied the song from someone's handwritten copy and misread a few letters ([`src/leftovers.py`](src/leftovers.py), [`results/leftovers.txt`](results/leftovers.txt)).
 - **The author.** No name is written. Someone who knew a GDR youth song well, and buried it in Baltiysk.
 
 Details: [`docs/open_questions.md`](docs/open_questions.md). If you know anything about this song in Baltiysk, a GDR songbook with it, or the bottle itself, please open an issue.
@@ -140,6 +140,7 @@ python check_transcriptions.py     # S2 in the 2015 transcription
 python null_test.py                # chance baseline (downloads ~30 MB of German news)
 python sieve.py ../data/song.txt   # the letter-count search (or any folder of .txt files)
 python structure.py                # what the note itself shows: rows of 13, dotted groups, the refrain, the letter mix, the hops
+python leftovers.py                # where the leftover letters come from: word edits, square boundaries, cursive look-alikes
 ```
 
 The [live dashboard](https://antalez.github.io/baltiysk-bottle-note/) shows short excerpts of the song only. To see each square's whole piece of the song, build it locally:

@@ -1,0 +1,25 @@
+Leftovers per square (song cut once, title in front):
+  S1: extra ls           missing fhiiu
+  S2: extra l            missing -
+  S3: extra ee           missing cciilnnrru
+  S4: extra iillllnnt    missing eee
+  S5: extra dfnn         missing hisu
+  S6: extra adss         missing cmrrtuuu
+
+1. Best single word-level edit vs the same on random letter slips of the same size (60 runs per square)
+  S1: 7 -> 5 (delete [auf] add [aus]); random slips gain 2.8 on average, as much or more in 88%
+  S2: 1 -> 1 (delete [] add []); random slips gain 0.2 on average, as much or more in 100%
+  S3: 12 -> 7 (delete [unser Deutschland] add [das deutsche]); random slips gain 4.3 on average, as much or more in 32%
+  S4: 12 -> 9 (delete [werden] add [Land Wir]); random slips gain 4.8 on average, as much or more in 97%
+  S5: 8 -> 5 (delete [die Einheit wird uns] add [die Frieden wird]); random slips gain 3.1 on average, as much or more in 77%
+  S6: 12 -> 7 (delete [ruft] add [das]); random slips gain 4.8 on average, as much or more in 58%
+
+2. Moving each square boundary on the paper by up to 13 letters (total letters off for all six squares)
+  S1|S2: as written 52; best shift +0 letters gives 52
+  S2|S3: as written 52; best shift +0 letters gives 52
+  S3|S4: as written 52; best shift -1 letters gives 50
+  S4|S5: as written 52; best shift -1 letters gives 52
+  S5|S6: as written 52; best shift -1 letters gives 50
+
+3. Extra and missing letters pairing as cursive look-alikes (e/l, e/i, e/c, i/l, n/u, v/u, a/o)
+  observed 7 pairs (per square [1, 0, 2, 3, 1, 0]); random slips 4.0 ± 1.6; as many or more: p = 0.073
