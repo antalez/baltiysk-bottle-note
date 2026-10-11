@@ -208,11 +208,11 @@ const plRu=(n,one,few,many)=>{const a=Math.abs(n)%100,b=a%10; return a>10&&a<20?
 const num=x=>LANG==="ru"?String(x).replace(".",","):String(x);
 const A_=(u,txt)=>`<a href="${u}" target="_blank" rel="noopener">${txt}</a>`;
 const U={repo:"https://github.com/antalez/baltiysk-bottle-note",schmeh:"https://scienceblogs.de/klausis-krypto-kolumne/2017/10/17/the-top-50-unsolved-encrypted-messages-19-the-kalinigrad-bottle-post/",
-  strana:"https://web.archive.org/web/20150907061615/http://strana39.ru/news/o-chem-govoryat/85709/v-baltiyske-obnaruzhili-cheburashku-s-poslaniem-.html",song:"https://lieder-aus-der-ddr.de/einheitslied/",ru:"https://github.com/antalez/baltiysk-bottle-note/blob/main/README.ru.md"};
+  strana:"https://web.archive.org/web/20150907061615/http://strana39.ru/news/o-chem-govoryat/85709/v-baltiyske-obnaruzhili-cheburashku-s-poslaniem-.html",song:"https://lieder-aus-der-ddr.de/einheitslied/",ru:"https://github.com/antalez/baltiysk-bottle-note/blob/main/README.ru.md",post:"https://klausschmeh.net/kaliningrad-cryptogram-another-top-50-crypto-mystery-solved/"};
 const I={
 en:{
   h1:"Baltiysk Bottle Note",
-  links:()=>A_(U.repo,"GitHub repository")+A_(U.schmeh,"Schmeh's Top 50, No. 19")+A_(U.strana,"The 2015 report (Strana Kaliningrad)")+A_(U.song,"The song"),
+  links:()=>A_(U.repo,"GitHub repository")+A_(U.post,"Confirmed on Schmeh's blog")+A_(U.schmeh,"Schmeh's Top 50, No. 19")+A_(U.strana,"The 2015 report (Strana Kaliningrad)")+A_(U.song,"The song"),
   sub:`The note found in a bottle in Baltiysk in 2015 is the GDR song <b>"Einheitslied"</b> (<i>Freundschaftskantate der Jugend</i>; words Herbert Keller, music André Asriel), cut into six consecutive pieces. Each piece was written into a 13 × 13 square with its letters jumbled. Here every square is matched against its piece of the song: the letters the text uses are crossed out, and what remains is shown.`,
   aiNote:"",
   tabSolution:"Solution",tabStory:"How it was found",tabNote:"The note",tabProof:"Proof",
@@ -303,7 +303,7 @@ en:{
 },
 ru:{
   h1:"Записка из бутылки в Балтийске",
-  links:()=>A_(U.repo,"Репозиторий на GitHub")+A_(U.ru,"Описание на русском")+A_(U.schmeh,"Top 50 Шмеха, № 19")+A_(U.strana,"Публикация 2015 года («Страна Калининград»)")+A_(U.song,"Песня"),
+  links:()=>A_(U.repo,"Репозиторий на GitHub")+A_(U.ru,"Описание на русском")+A_(U.post,"Подтверждение в блоге Шмеха")+A_(U.schmeh,"Top 50 Шмеха, № 19")+A_(U.strana,"Публикация 2015 года («Страна Калининград»)")+A_(U.song,"Песня"),
   sub:`Записка, найденная в бутылке в Балтийске в 2015 году, это песня ГДР <b>«Einheitslied»</b> («Песня единства» из <i>Freundschaftskantate der Jugend</i>; слова Херберта Келлера, музыка Андре Асриэля), разрезанная на шесть кусков подряд. Каждый кусок вписан в квадрат 13 × 13 с перемешанными буквами. Здесь каждый квадрат сравнивается со своим куском песни: буквы, которые использует текст, вычеркнуты, а остаток показан.`,
   aiNote:"Перевод страницы выполнен с помощью ИИ (Claude). При расхождениях верна английская версия.",
   tabSolution:"Решение",tabStory:"Как нашли",tabNote:"Записка",tabProof:"Доказательство",

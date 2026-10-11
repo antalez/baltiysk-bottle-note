@@ -5,6 +5,7 @@
 [![Dashboard](https://img.shields.io/badge/dashboard-live-c2453b)](https://antalez.github.io/baltiysk-bottle-note/)
 [![README: EN | RU](https://img.shields.io/badge/README-EN%20%7C%20RU-5d6678)](README.ru.md)
 [![Code: MIT](https://img.shields.io/badge/code-MIT-lightgrey)](LICENSE)
+[![Featured on Cipherbrain](https://img.shields.io/badge/featured%20on-Cipherbrain-2f7a4b)](https://klausschmeh.net/kaliningrad-cryptogram-another-top-50-crypto-mystery-solved/)
 
 *[Русская версия](README.ru.md) (AI-translated).*
 
@@ -17,6 +18,8 @@ In 2015 workers digging a gas trench by Lenin Street 64–66 in Baltiysk (Kalini
 **It is a song.** The note is the text of the GDR youth song **["Einheitslied"](https://lieder-aus-der-ddr.de/einheitslied/)** from the *Freundschaftskantate der Jugend* (words: Herbert Keller, music: [André Asriel](https://de.wikipedia.org/wiki/Andr%C3%A9_Asriel)). Its stanzas *Freundschaft! Allen Völkern Freundschaft …*, *Einheit! …* and the start of *Frieden! …* were cut into six consecutive pieces of about 169 letters. Each piece was written into a 13 × 13 square with its letters jumbled, and the squares were copied row by row with invented word breaks. Below the last square stands **"eimat"** followed by dots: most likely the end of *Heimat* (*"Singen soll die Heimat"*), which follows a few words after the last square's text.
 
 <p align="center"><b><a href="https://antalez.github.io/baltiysk-bottle-note/">Open the interactive dashboard</a></b> · <a href="https://antalez.github.io/baltiysk-bottle-note/dashboard/#story">How it was found, step by step</a> · <a href="#the-proof">The proof</a> · <a href="https://antalez.github.io/baltiysk-bottle-note/dashboard/?lang=ru">По-русски</a></p>
+
+<p align="center">Klaus Schmeh confirmed the solution on his blog: <a href="https://klausschmeh.net/kaliningrad-cryptogram-another-top-50-crypto-mystery-solved/">Kaliningrad cryptogram: another top 50 crypto mystery solved</a> (10 October 2026).</p>
 
 <p align="center"><img src="docs/img/squares.png" alt="The six squares with every letter used by the song crossed out; S2: 168 of 169 used"></p>
 <p align="center"><sub>The six squares of the note. Every cell whose letter is used by that square's piece of the song is crossed out; amber cells are left over. S2 uses 168 of its 169 cells.</sub></p>
@@ -160,6 +163,7 @@ open ../dashboard/index.html                                # or double-click it
 
 ## Sources and links
 
+- **The solution, confirmed:** Klaus Schmeh, ["Kaliningrad cryptogram: another top 50 crypto mystery solved"](https://klausschmeh.net/kaliningrad-cryptogram-another-top-50-crypto-mystery-solved/) (Cipherbrain, 10 October 2026).
 - **The find:** *Strana Kaliningrad*, No. 27, 1–7 July 2015 ([archived web article](https://web.archive.org/web/20150907061615/http://strana39.ru/news/o-chem-govoryat/85709/v-baltiyske-obnaruzhili-cheburashku-s-poslaniem-.html)).
 - **The case:** Klaus Schmeh, ["Kaliningrad's second mystery: who can break this encrypted bottle post?"](https://scienceblogs.de/klausis-krypto-kolumne/2016/09/12/kaliningrads-second-mystery-who-can-break-this-encrypted-bottle-post/) (2016, with the photographs) and ["The Top 50 unsolved encrypted messages: 19. The Kaliningrad bottle post"](https://scienceblogs.de/klausis-krypto-kolumne/2017/10/17/the-top-50-unsolved-encrypted-messages-19-the-kalinigrad-bottle-post/) (2017, with Thomas Ernst's transcription in the comments).
 - **The 2015 transcription:** [d3.ru thread](https://simple_life.d3.ru/v-baltiiske-nashli-butylku-s-shifrovkoi-na-neizvestnom-iazyke-784251/) (comments).

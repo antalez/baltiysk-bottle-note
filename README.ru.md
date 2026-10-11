@@ -4,6 +4,7 @@
 [![Список Шмеха: № 19](https://img.shields.io/badge/Top%2050%20Шмеха-№%2019-1f3f94)](https://scienceblogs.de/klausis-krypto-kolumne/2017/10/17/the-top-50-unsolved-encrypted-messages-19-the-kalinigrad-bottle-post/)
 [![Интерактивная страница](https://img.shields.io/badge/страница-онлайн-c2453b)](https://antalez.github.io/baltiysk-bottle-note/dashboard/?lang=ru)
 [![README: EN | RU](https://img.shields.io/badge/README-EN%20%7C%20RU-5d6678)](README.md)
+[![Пост в блоге Cipherbrain](https://img.shields.io/badge/Cipherbrain-%D0%BF%D0%BE%D1%81%D1%82-2f7a4b)](https://klausschmeh.net/kaliningrad-cryptogram-another-top-50-crypto-mystery-solved/)
 
 *Перевод с английского выполнен с помощью ИИ (Claude). При расхождениях верна [английская версия](README.md).*
 
@@ -16,6 +17,8 @@
 **Это песня.** В записке записан текст песни ГДР **[«Einheitslied»](https://lieder-aus-der-ddr.de/einheitslied/)** («Песня единства») из *Freundschaftskantate der Jugend* («Кантата дружбы молодёжи»; слова Херберта Келлера, музыка [Андре Асриэля](https://de.wikipedia.org/wiki/Andr%C3%A9_Asriel)). Её куплеты *Freundschaft! Allen Völkern Freundschaft …*, *Einheit! …* и начало куплета *Frieden! …* разрезаны на шесть идущих подряд кусков примерно по 169 букв. Каждый кусок вписан в квадрат 13 × 13, буквы внутри квадрата перемешаны, затем квадраты переписаны по строкам с придуманными пробелами между «словами». Под последним квадратом стоит **«eimat»** и точки. Скорее всего, это конец слова *Heimat* («Родина»; в песне *«Singen soll die Heimat»*), которое идёт в тексте через несколько слов после последнего квадрата.
 
 <p align="center"><b><a href="https://antalez.github.io/baltiysk-bottle-note/dashboard/?lang=ru">Открыть интерактивную страницу</a></b> · <a href="https://antalez.github.io/baltiysk-bottle-note/dashboard/?lang=ru#story">Как нашли, по шагам</a> · <a href="#доказательство">Доказательство</a><br><sub>Страница на русском и английском (переключатель EN | RU).</sub></p>
+
+<p align="center">Клаус Шмех подтвердил решение в своём блоге: <a href="https://klausschmeh.net/kaliningrad-cryptogram-another-top-50-crypto-mystery-solved/">Kaliningrad cryptogram: another top 50 crypto mystery solved</a> (10 октября 2026).</p>
 
 <p align="center"><img src="docs/img/squares.png" alt="Шесть квадратов записки: вычеркнуты все буквы, которые использует песня; в S2 использовано 168 из 169"></p>
 <p align="center"><sub>Шесть квадратов записки. Вычеркнута каждая клетка, чью букву использует кусок песни этого квадрата; жёлтым отмечено лишнее. В S2 использовано 168 клеток из 169.</sub></p>
@@ -158,6 +161,7 @@ open ../dashboard/index.html                                # или откро�
 
 ## Источники и ссылки
 
+- **Решение подтверждено:** Клаус Шмех, ["Kaliningrad cryptogram: another top 50 crypto mystery solved"](https://klausschmeh.net/kaliningrad-cryptogram-another-top-50-crypto-mystery-solved/) (Cipherbrain, 10 октября 2026).
 - **Находка:** «Страна Калининград», № 27, 1–7 июля 2015 ([архив веб-статьи](https://web.archive.org/web/20150907061615/http://strana39.ru/news/o-chem-govoryat/85709/v-baltiyske-obnaruzhili-cheburashku-s-poslaniem-.html)).
 - **Загадка:** Клаус Шмех, ["Kaliningrad's second mystery: who can break this encrypted bottle post?"](https://scienceblogs.de/klausis-krypto-kolumne/2016/09/12/kaliningrads-second-mystery-who-can-break-this-encrypted-bottle-post/) (2016, с фотографиями) и ["The Top 50 unsolved encrypted messages: 19. The Kaliningrad bottle post"](https://scienceblogs.de/klausis-krypto-kolumne/2017/10/17/the-top-50-unsolved-encrypted-messages-19-the-kalinigrad-bottle-post/) (2017, транскрипция Томаса Эрнста в комментариях).
 - **Транскрипция 2015 года:** [обсуждение на d3.ru](https://simple_life.d3.ru/v-baltiiske-nashli-butylku-s-shifrovkoi-na-neizvestnom-iazyke-784251/) (в комментариях).
